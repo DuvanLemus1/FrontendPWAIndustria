@@ -83,6 +83,7 @@ const Registrar = () => {
           className="border p-2 rounded-md mb-4 w-64"
         />
 
+        <div className="group relative m-1 flex justify-center">
         <label htmlFor="contraseña" className="sr-only">
           Contraseña
         </label>
@@ -90,13 +91,20 @@ const Registrar = () => {
           type="password"
           id="contrasena"
           name="contrasena"
-          required
           value={contrasena}
           onChange={(e) => setcontrasena(e.target.value)}
           placeholder="Contraseña"
           className="border p-2 rounded-md mb-4 w-64"
         />
-
+        <span className="absolute transition-all my-2 top-10 scale-0 rounded
+                       bg-gray-800 p-2 text-sm text-white group-hover:scale-100">
+                        🔒 Tu contraseña debe cumplir los siguientes requisitos:
+                        <br/> ⦁ Entre 8 y 12 caracteres
+                        <br/> ⦁ Al menos un número
+                        <br/> ⦁ Una letra minúscula
+                        <br/> ⦁ Una letra mayúscula 
+                        <br/> ⦁ Un caracter especial</span>
+        </div>
         <label htmlFor="repetirContrasena" className="sr-only">
           Repetir Contraseña
         </label>

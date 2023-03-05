@@ -2,11 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Alerta from "../components/Alerta";
 import axios from "axios";
+import useAuth from "../hooks/UseAuth";
 
 const Login = () => {
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasena, setcontrasena] = useState("");
   const [alerta, setAlerta] = useState({})
+
+  const { setAuth} = useAuth();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +30,7 @@ const Login = () => {
 
       setAlerta({})
       localStorage.setItem('token',data.token)
-
+      setAuth(data)
       console.log(data);
     } catch (error) {
       setAlerta({
@@ -49,7 +53,7 @@ const Login = () => {
 
       <form onSubmit={handleSubmit} className="flex flex-col p-5 items-center my-10 bg-white rounded-lg shadow">
 
-        <div className="group relative m-4 flex justify-center">
+        <div >
         <label htmlFor="correoElectronico" className="sr-only">
           Correo electrónico
         </label>
@@ -57,13 +61,11 @@ const Login = () => {
           type="email"
           id="correoElectronico"
           name="correcoElectronico"
-          
           value={correoElectronico}
           onChange={(e) => setCorreoElectronico(e.target.value)}
           placeholder="Correo electrónico"
           className="border p-2 rounded-md mb-4 w-64"
         />
-        <span className="absolute transition-all my-2 top-10 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">📧 Ingresa tu dirección de correo asociada</span>
         </div>
         <label htmlFor="contrasena" className="sr-only">
           Contraseña
