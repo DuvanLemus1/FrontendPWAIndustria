@@ -75,7 +75,7 @@ const OlvideContrasena = () => {
         </button>
 
         <nav className="lg:flex lg:justify-between">
-          <Link to='registrar' className="block text-center my-5 text-slate-600 uppercase hover:text-slate-800 transition-colors duration-300 text-sm">
+          <Link to='/registrar' className="block text-center my-5 text-slate-600 uppercase hover:text-slate-800 transition-colors duration-300 text-sm">
             No tienes cuenta? Regístrate
           </Link>
         </nav>
