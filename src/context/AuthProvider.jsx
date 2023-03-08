@@ -32,7 +32,7 @@ const AuthProvider = ({children}) =>{
             try {
                 const {data} = await axios(`http://localhost:4000/api/doctores/perfil`, config)
                 setAuth(data)
-                navigate('/pacientes')
+                //navigate('/pacientes')
             } catch (error) {
                 setAuth({})
                 

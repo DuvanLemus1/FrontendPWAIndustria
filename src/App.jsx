@@ -18,6 +18,7 @@ import { PacientesProvider } from './context/PacienteProvider.jsx';
 import Pacientes from './pages/Pacientes.jsx';
 import NuevoPaciente from './pages/NuevoPaciente.jsx';
 import Paciente from './pages/Paciente.jsx';
+import EditarPaciente from './pages/EditarPaciente.jsx';
 
 function App() {
   
@@ -38,7 +39,8 @@ function App() {
             <Route path='/pacientes' element={<RutaProtegida/>} >
               <Route index element = {<Pacientes/>}/>
               <Route path='crearPaciente' element={<NuevoPaciente/>} />
-              <Route path=':idPaciente' element={<Paciente/>}  />
+              <Route path=':idPaciente' element={<Paciente/>}/>
+              <Route path='editar/:idPaciente' element={<EditarPaciente/>}/>
             </Route>  
           </Routes>
         </PacientesProvider>

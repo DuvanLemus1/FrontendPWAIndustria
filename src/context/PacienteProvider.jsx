@@ -8,7 +8,10 @@ const PacientesContext = createContext();
 const PacientesProvider = ({children}) => {
 
     const [pacientes, setPacientes] = useState([]);
-    const [alerta, setAlerta] = useState([]);
+    const [alerta, setAlerta] = useState({});
+
+    const [paciente, setPaciente] = useState('');
+    const [cargando, setCargando] = useState(false);
 
     const navigate = useNavigate();
 
@@ -47,6 +50,49 @@ const PacientesProvider = ({children}) => {
     
     const submitPaciente = async paciente =>{
         
+        
+        
+    const editarPaciente = async paciente =>{
+        try {
+            const token =  localStorage.getItem('token');
+            
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.put(`http://localhost:4000/api/pacientes/${paciente.id}`,paciente, config);
+            
+            //Sincronizar el state
+            const pacientesActualizados = 
+            pacientes.map(pacienteState => 
+                pacienteState.idPaciente === data.idPaciente ?
+                data:
+                pacienteState);
+                setPacientes(pacientesActualizados);
+
+                setAlerta({
+                    msg:'Paciente actualizado exitosamente',
+                    error:false
+                })
+    
+                setTimeout(()=>{
+                    setAlerta({})
+                    navigate('/pacientes');
+                }, 3000)
+
+
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const nuevoPaciente= async paciente =>{
         try {
             
             const token =  localStorage.getItem('token');
@@ -61,6 +107,7 @@ const PacientesProvider = ({children}) => {
             }
 
             const {data} = await axios.post('http://localhost:4000/api/pacientes', paciente, config)
+            
             setPacientes([...pacientes, data])
 
             setAlerta({
@@ -76,7 +123,73 @@ const PacientesProvider = ({children}) => {
         } catch (error) {
             console.log(error)
         }
-        console.log(paciente)
+        
+        }
+
+        if(paciente.id){
+           await editarPaciente(paciente)
+        }else{
+            await nuevoPaciente(paciente)
+        }
+    }
+
+
+
+    const obtenerPaciente= async (idPaciente) => {
+        setCargando(true);
+        try {
+
+            const token =  localStorage.getItem('token');
+            
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios(`http://localhost:4000/api/pacientes/${idPaciente}`,config)
+            setPaciente(data)
+        } catch (error) {
+            console.log(error)
+        } finally{
+            setCargando(false);
+        }
+    }
+
+    const eliminarPaciente = async idPaciente =>{
+        try {
+            const token =  localStorage.getItem('token');
+            console.log(token);
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.delete(`http://localhost:4000/api/pacientes/${idPaciente}`, config)
+            
+            const pacientesActualizados = pacientes.filter(pacienteState=>pacienteState.idPaciente!==idPaciente)
+            setPacientes(pacientesActualizados);
+
+            setAlerta({
+                msg:data.msg,
+                error:false
+            })
+
+            setTimeout(()=>{
+                setAlerta({})
+                navigate('/pacientes');
+            }, 3000)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(
@@ -85,7 +198,11 @@ const PacientesProvider = ({children}) => {
                 pacientes,
                 mostrarAlerta,
                 alerta,
-                submitPaciente
+                submitPaciente,
+                obtenerPaciente,
+                paciente,
+                cargando,
+                eliminarPaciente
             }}
         >{children}
         </PacientesContext.Provider>

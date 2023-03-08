@@ -1,7 +1,21 @@
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
+
+
 
 const Header = () => {
+    const navigate = useNavigate();
+    
+
+    const handleClick = ()=>{
+        localStorage.removeItem('token')
+        
+        setTimeout(()=>{
+            navigate('/');
+        }, 1000)
+    }
+
   return (
     <>
     <header className="px-4 py-5 bg-white border-b">
@@ -22,11 +36,14 @@ const Header = () => {
             <div className="flex items-center gap-4">
                 <Link
                     to="/pacientes"
-                    className="font-bold uppercase"
-                >Pacientes</Link>
+                    className="font-bold uppercase
+                                hover:text-sky-700 
+                                transition-colors"
+                >Lista de Pacientes</Link>
                 <button
                     type="button"
                     className="text-white text-sm bg-sky-600 rounded-md uppercase p-2.5  font-bold"
+                    onClick={handleClick}
                 >Cerrar Sesión</button>
             </div>
         </div>

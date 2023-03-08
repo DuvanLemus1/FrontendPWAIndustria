@@ -23,6 +23,7 @@ const RutaProtegida = () => {
 
               <main className="p-10 flex-1">
                 <Outlet/>
+                
               </main>
             </div>
           </div>

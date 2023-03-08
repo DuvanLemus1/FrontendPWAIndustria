@@ -12,7 +12,13 @@ const Pacientes = () => {
     
       <h1 className="text-4xl font-black">Pacientes</h1>
 
+      
       <div className="mt-10 justify-center p-5 bg-white shadow rounded-xl">
+      <div className="font-bold text-center" >
+        <p>Nombres y DNI, para más información haga click en 
+          <span className="text-sky-500"> VER DETALLE</span></p>
+        
+      </div>
 
         {pacientes.length?
             pacientes.map(paciente => (
@@ -21,7 +27,7 @@ const Pacientes = () => {
                 paciente={paciente}
               />
          ))
-        :<p className="mt-5 text-center text-gray-600 uppercase">No hay ningun paciente</p>}
+        :<p className="mt-5 text-center text-gray-600 uppercase">No hay ningún paciente</p>}
       </div>
 
     </>

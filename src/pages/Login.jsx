@@ -11,9 +11,18 @@ const Login = () => {
 
   const { setAuth} = useAuth();
   
+  const navigate = useNavigate();
+    const handleClick = ()=>{
+        
+        setTimeout(()=>{
+            navigate('/pacientes');
+        }, 2000)
+    }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
 
     if([contrasena, correoElectronico].includes('')){
       setAlerta({
@@ -84,6 +93,7 @@ const Login = () => {
           <button
             type="submit"
             className="bg-sky-600 font-bold text-white px-4 py-2 rounded-md hover:bg-sky-800 transition-colors duration-300"
+            onClick={handleClick}
           >
             Iniciar sesión
           </button>

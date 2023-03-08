@@ -1,19 +1,37 @@
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom";
 import usePacientes from "../hooks/useProyectos";
 import Alerta from "./Alerta"; 
 
 const FormularioPaciente = () => {
+    const [id, setId] = useState(null); //variable condicional
     const [nombrePaciente, setNombrePaciente] = useState('');
     const [DNI, setDNI] = useState('');
-    const [telefono, setTelefono] = useState('');
+    const [telefonoPaciente, setTelefonoPaciente] = useState('');
     const [correoElectronicoPaciente, setCorreoElectronicoPaciente] = useState('');
     const [direccionPaciente, setDireccionPaciente] = useState('');
 
+    const params=useParams();
+    
+
     const {mostrarAlerta,
            alerta, 
-           submitPaciente} = usePacientes();
+           submitPaciente,
+           paciente } = usePacientes();
 
+    useEffect(()=>{
+        if(params.idPaciente){
+            setId(paciente.idPaciente)
+            setNombrePaciente(paciente.nombrePaciente);
+            setDNI(paciente.DNI);
+            setTelefonoPaciente(paciente.telefonoPaciente);
+            setCorreoElectronicoPaciente(paciente.correoElectronicoPaciente);
+            setDireccionPaciente(paciente.direccionPaciente);
+        }
+        
+    },[params])
+    
     const handleSubmit = async e =>{
         e.preventDefault();
 
@@ -31,16 +49,18 @@ const FormularioPaciente = () => {
 
         //Pasar los datos hacia la api a traves del Provider
         await submitPaciente({
+            "id":id,
             "DNI":DNI,
             "nombrePaciente":nombrePaciente, 
-            "telefonoPaciente":telefono,
+            "telefonoPaciente":telefonoPaciente,
             "correoElectronicoPaciente":correoElectronicoPaciente,
             "direccionPaciente":direccionPaciente,
         });
 
+        setId(null)
         setNombrePaciente('');
         setDNI('');
-        setTelefono('');
+        setTelefonoPaciente('');
         setCorreoElectronicoPaciente('');
         setDireccionPaciente('');
     }
@@ -101,9 +121,9 @@ const FormularioPaciente = () => {
                     type='text'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Nombre del Paciente"
-                    value={telefono}
-                    onChange={e => setTelefono(e.target.value)}
+                    placeholder="Telefono del Paciente"
+                    value={telefonoPaciente}
+                    onChange={e => setTelefonoPaciente(e.target.value)}
                 />
             </div>
 
@@ -142,7 +162,7 @@ const FormularioPaciente = () => {
             </div>    
             <input
                 type='submit'
-                value='Registrar Paciente'
+                value={id?'Actualizar Datos de Paciente':'Registrar Paciente'}
                 className="bg-sky-600 w-full p-3 uppercase
                              font-bold text-white rounded-md
                              cursor-pointer hover:bg-sky-700
