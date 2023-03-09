@@ -40,6 +40,12 @@ const Header = () => {
                                 hover:text-sky-700 
                                 transition-colors"
                 >Lista de Pacientes</Link>
+                <Link
+                    to="/proveedores"
+                    className="font-bold uppercase
+                                hover:text-sky-700 
+                                transition-colors"
+                >Lista de Proveedores</Link>
                 <button
                     type="button"
                     className="text-white text-sm bg-sky-600 rounded-md uppercase p-2.5  font-bold"

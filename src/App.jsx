@@ -5,6 +5,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import Authlayout from './layouts/Authlayout.jsx';
 import RutaProtegida from './layouts/RutaProtegida.jsx';
+import RutaHomeProtegida from './layouts/RutaHomeProtegida.jsx';
 
 import Login from './pages/Login.jsx';
 import Registrar from './pages/Registrar.jsx';
@@ -14,11 +15,20 @@ import ConfirmarCuenta from './pages/ConfirmarCuenta.jsx';
 
 import { AuthProvider } from './context/AuthProvider.jsx';
 import { PacientesProvider } from './context/PacienteProvider.jsx';
+import {ProveedoresProvider} from './context/ProveedorProvider.jsx';
 
 import Pacientes from './pages/Pacientes.jsx';
 import NuevoPaciente from './pages/NuevoPaciente.jsx';
 import Paciente from './pages/Paciente.jsx';
 import EditarPaciente from './pages/EditarPaciente.jsx';
+
+import Proveedores from './pages/Proveedores.jsx';
+import NuevoProveedor from './pages/NuevoProveedor.jsx';
+import Proveedor from './pages/Proveedor.jsx';
+import EditarProveedor from './pages/EditarProveedor.jsx';
+
+import Home from './pages/Home.jsx';
+
 
 function App() {
   
@@ -27,22 +37,38 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <PacientesProvider>
-          <Routes>
-            <Route path='/' element={<Authlayout/>}>
-              <Route index element={<Login/>}/>
-              <Route path='registrar' element={<Registrar/>}/>
-              <Route path='olvideContrasena' element={<OlvideContrasena/>}/>
-              <Route path='olvideContrasena/:token' element={<NuevaContrasena/>}/>
-              <Route path='confirmarCuenta/:token' element={<ConfirmarCuenta/>} />
-            </Route>  
+          <ProveedoresProvider>
+            <Routes>
 
-            <Route path='/pacientes' element={<RutaProtegida/>} >
-              <Route index element = {<Pacientes/>}/>
-              <Route path='crearPaciente' element={<NuevoPaciente/>} />
-              <Route path=':idPaciente' element={<Paciente/>}/>
-              <Route path='editar/:idPaciente' element={<EditarPaciente/>}/>
-            </Route>  
-          </Routes>
+              <Route path='/' element={<Authlayout/>}>
+                <Route index element={<Login/>}/>
+                <Route path='registrar' element={<Registrar/>}/>
+                <Route path='olvideContrasena' element={<OlvideContrasena/>}/>
+                <Route path='olvideContrasena/:token' element={<NuevaContrasena/>}/>
+                <Route path='confirmarCuenta/:token' element={<ConfirmarCuenta/>} />
+              </Route>  
+
+              <Route path='/home' element={<RutaHomeProtegida/>}>
+              <Route index element = {<Home/>}/>
+              
+              </Route>
+
+              <Route path='/pacientes' element={<RutaProtegida/>} >
+                <Route index element = {<Pacientes/>}/>
+                <Route path='crearPaciente' element={<NuevoPaciente/>} />
+                <Route path=':idPaciente' element={<Paciente/>}/>
+                <Route path='editar/:idPaciente' element={<EditarPaciente/>}/>
+              </Route> 
+
+              <Route path='/proveedores' element={<RutaProtegida/>} >
+                <Route index element = {<Proveedores/>}/>
+                <Route path='crearProveedor' element={<NuevoProveedor/>} />
+                <Route path=':idProveedor' element={<Proveedor/>}/>
+                <Route path='editar/:idProveedor' element={<EditarProveedor/>}/>
+              </Route>
+              
+            </Routes>
+          </ProveedoresProvider>
         </PacientesProvider>
       </AuthProvider>
     </BrowserRouter>

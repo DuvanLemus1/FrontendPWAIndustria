@@ -1,5 +1,5 @@
 
-import usePacientes from "../hooks/useProyectos"
+import usePacientes from "../hooks/UsePacientes"
 import PreviewPacientes from "../components/PreviewPacientes";
 
 const Pacientes = () => {

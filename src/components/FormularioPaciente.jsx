@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom";
-import usePacientes from "../hooks/useProyectos";
+import usePacientes from "../hooks/UsePacientes";
 import Alerta from "./Alerta"; 
 
 const FormularioPaciente = () => {

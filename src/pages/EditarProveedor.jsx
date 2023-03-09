@@ -1,27 +1,27 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import usePacientes from "../hooks/UsePacientes"
-import FormularioPaciente from "../components/FormularioPaciente";
+import useProveedores from "../hooks/UseProveedor"
+import FormularioProveedor from "../components/FormularioProveedor";
 
-const EditarPaciente = () => {
+const EditarProveedor = () => {
     const params =useParams();
 
-    const {obtenerPaciente, paciente, cargando, eliminarPaciente} = usePacientes();
+    const {obtenerProveedor, proveedor, cargando, eliminarProveedor} = useProveedores();
   
     useEffect(()=>{
-        obtenerPaciente(params.idPaciente)
+        obtenerProveedor(params.idProveedor)
     }, []);
 
     const handleClick = ()=>{
-        if(confirm("¿Deseas eliminar este paciente?")){
-            eliminarPaciente(params.idPaciente)
+        if(confirm("¿Deseas eliminar este proveedor?")){
+            eliminarProveedor(params.idProveedor)
         }else{
             console.log('No')
         }
 
     }
 
-    const {nombrePaciente} = paciente
+    const {nombreProveedor} = proveedor
 
     if(cargando) return 'Cargando... '
 
@@ -31,7 +31,7 @@ const EditarPaciente = () => {
 
         <div className="flex justify-between">
         <h1 className="font-black text-4xl">
-            Editar Paciente: {paciente.nombrePaciente}
+            Editar Proveedor: {proveedor.nombreProveedor}
         </h1>
 
         <div className="flex items-center gap-2 text-gray-500 hover:text-black">
@@ -42,15 +42,16 @@ const EditarPaciente = () => {
             <button
                 className="uppercase font-bold"
                 onClick={handleClick}
-            >Eliminar Paciente</button>
+            >Eliminar Proveedor</button>
             </div>
         </div>
 
         <div className="mt-10 flex justify-center">
-          <FormularioPaciente/>
+          <FormularioProveedor/>
         </div>
     </div>
   )
 }
 
-export default EditarPaciente
+export default EditarProveedor;
+
