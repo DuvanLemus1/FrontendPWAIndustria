@@ -40,7 +40,9 @@ const Login = () => {
       setAlerta({})
       localStorage.setItem('token',data.token)
       setAuth(data)
-        navigate('/home')
+      navigate('/home')
+      
+        
       
     } catch (error) {
       setAlerta({

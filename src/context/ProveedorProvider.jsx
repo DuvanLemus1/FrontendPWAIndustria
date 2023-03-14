@@ -12,6 +12,8 @@ const ProveedoresProvider = ({children}) => {
     const [proveedor, setProveedor] = useState('');
     const [cargando, setCargando] = useState(false);
 
+    const [modalFormularioCita, setModalFormularioCita] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -191,6 +193,10 @@ const ProveedoresProvider = ({children}) => {
         }
     }
 
+    const handleModalCita=()=>{
+        setModalFormularioCita(!modalFormularioCita)
+    }
+
     return(
         <ProveedoresContext.Provider
             value={{
@@ -201,7 +207,9 @@ const ProveedoresProvider = ({children}) => {
                 obtenerProveedor,
                 proveedor,
                 cargando,
-                eliminarProveedor
+                eliminarProveedor,
+                modalFormularioCita,
+                handleModalCita
             }}
         >{children}
         </ProveedoresContext.Provider>
