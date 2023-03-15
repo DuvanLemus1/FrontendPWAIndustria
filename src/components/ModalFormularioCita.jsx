@@ -8,6 +8,7 @@ import usePacientes from '../hooks/UsePacientes'
 
 const ModalFormularioCita = () => {
  
+    const [id, setId] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [fechaCita, setFechaCita] = useState('')
     const [horaCita, setHoraCita] = useState('')
@@ -16,7 +17,31 @@ const ModalFormularioCita = () => {
 
     const params = useParams()
 
-    const {modalFormularioCita, handleModalCita, mostrarAlerta, alerta, submitCita } = usePacientes();
+    const {modalFormularioCita, 
+           handleModalCita, 
+           mostrarAlerta, 
+           alerta, 
+           submitCita,
+           cita } = usePacientes();
+
+    useEffect(()=>{
+        if(cita?.idCita){
+            setId(cita.idCita)
+            setDescripcion(cita.descripcion);
+            setFechaCita(cita.fechaCita);
+            setHoraCita(cita.horaCita);
+            setEstadoCita(cita.estadoCita);
+            setPrecio(cita.precio);
+            return;
+        }
+        setId('');
+        setDescripcion('');
+        setFechaCita('');
+        setHoraCita('');
+        setEstadoCita('');
+        setPrecio('');
+
+    },[cita])
 
     const hanldeSubmit = async e =>{
         e.preventDefault();
@@ -29,13 +54,15 @@ const ModalFormularioCita = () => {
             return;
         }
         await submitCita({
+            "id":id,
             "descripcion":descripcion,
             "fechaCita": fechaCita,
             "horaCita": horaCita,
             "estadoCita": estadoCita,
             "precio": precio,
-             "idPaciente": params.idPaciente});
+            "idPaciente": params.idPaciente});
         
+        setId('')
         setDescripcion('');
         setFechaCita('');
         setHoraCita('')
@@ -100,7 +127,7 @@ const ModalFormularioCita = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        Programar Nueva Cita
+                                        {id ? 'Editar cita':'Programar nueva cita'}
                                     </Dialog.Title>
 
                                     {msg && <Alerta alerta ={alerta}/>}
@@ -205,7 +232,7 @@ const ModalFormularioCita = () => {
                                                          p-3 text-white uppercase font-bold
                                                          cursor-pointer transition-colors
                                                          rounded-md'
-                                            value="Agendar Cita"  
+                                            value={id ? 'Guardar Cambios':'Agendar cita'}  
                                         />
 
                                     </form>

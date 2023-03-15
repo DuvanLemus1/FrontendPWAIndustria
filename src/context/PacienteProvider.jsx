@@ -14,6 +14,7 @@ const PacientesProvider = ({children}) => {
     const [citas, setCitas] =useState([])
     const [cargando, setCargando] = useState(false);
     const [modalFormularioCita, setModalFormularioCita] = useState(false)
+    const [cita, setCita] = useState({});
 
 
     const navigate = useNavigate();
@@ -196,12 +197,23 @@ const PacientesProvider = ({children}) => {
 
     const handleModalCita = ()=>{
     setModalFormularioCita(!modalFormularioCita);
+    setCita({});
     }
 
     const submitCita = async cita=>{
+
+        if(cita.id){
+            await editarCita(cita)
+        }else{
+            await crearCita(cita)
+        }
+        
+    }
+
+    const crearCita = async cita =>{
         try {
             const token =  localStorage.getItem('token');
-            console.log(token);
+            
             if(!token) return;
             
             const config = {
@@ -221,6 +233,36 @@ const PacientesProvider = ({children}) => {
         }
     }
 
+    const editarCita = async cita => {
+        try {
+            const token =  localStorage.getItem('token');
+            console.log(token);
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.put(`http://localhost:4000/api/citas/${cita.id}`, cita, config);
+            console.log(data);
+            
+            setAlerta({})
+            setModalFormularioCita(false)
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleModalEditarCita = cita =>{
+        setCita(cita);
+        setModalFormularioCita(true);
+    }
+
     return(
         <PacientesContext.Provider
             value={{
@@ -235,7 +277,9 @@ const PacientesProvider = ({children}) => {
                 eliminarPaciente,
                 modalFormularioCita,
                 handleModalCita,
-                submitCita
+                submitCita,
+                handleModalEditarCita,
+                cita
                 
             }}
         >{children}
