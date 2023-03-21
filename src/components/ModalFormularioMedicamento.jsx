@@ -4,80 +4,74 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useParams } from 'react-router-dom'
 import Alerta from './Alerta'
 
-import usePacientes from '../hooks/UsePacientes'
+import useProveedores from '../hooks/UseProveedor.jsx'
 
-const ModalFormularioCita = () => {
+const ModalFormularioMedicamento = () => {
  
     const [id, setId] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [fechaCita, setFechaCita] = useState('')
-    const [horaCita, setHoraCita] = useState('')
-    const [estadoCita, setEstadoCita] = useState('')
-    const [precio, setPrecio] = useState('')
+    const [serialMedicamento, setSerialMedicamento] = useState('')
+    const [nombreMedicamento, setNombreMedicamento] = useState('')
+    const [cantidadMedicamento, setCantidadMedicamento] = useState('')
+    const [precioUnitario, setPrecioUnitario] = useState('')
 
     const params = useParams()
 
-    const {modalFormularioCita, 
-           handleModalCita, 
+    const {modalFormularioMedicamento, 
+           handleModalMedicamento, 
            mostrarAlerta, 
            alerta, 
-           submitCita,
-           cita } = usePacientes();
+           submitMedicamento,
+           medicamento } = useProveedores();
 
     useEffect(()=>{
-        if(cita?.idCita){
-            setId(cita.idCita)
-            setDescripcion(cita.descripcion);
-            setFechaCita(cita.fechaCita);
-            setHoraCita(cita.horaCita);
-            setEstadoCita(cita.estadoCita);
-            setPrecio(cita.precio);
+        if(medicamento?.idMedicamento){
+            setId(medicamento.idMedicamento)
+            setSerialMedicamento(medicamento.serialMedicamento);
+            setNombreMedicamento(medicamento.nombreMedicamento);
+            setCantidadMedicamento(medicamento.cantidadMedicamento);
+            setPrecioUnitario(medicamento.precioUnitario);
             return;
         }
         setId('');
-        setDescripcion('');
-        setFechaCita('');
-        setHoraCita('');
-        setEstadoCita('');
-        setPrecio('');
+        setSerialMedicamento('');
+        setNombreMedicamento('');
+        setCantidadMedicamento('');
+        setPrecioUnitario('');
 
-    },[cita])
+    },[medicamento])
 
-    const hanldeSubmit = async e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
 
-        if([descripcion, fechaCita, horaCita, estadoCita, precio].includes('')){
+        if([serialMedicamento, nombreMedicamento, cantidadMedicamento, precioUnitario].includes('')){
             mostrarAlerta({
                 msg:'Todos los campos son obligatorios',
                 error:true
             })
             return;
         }
-        await submitCita({
+        await submitMedicamento({
             "id":id,
-            "descripcion":descripcion,
-            "fechaCita": fechaCita,
-            "horaCita": horaCita,
-            "estadoCita": estadoCita,
-            "precio": precio,
-            "idPaciente": params.idPaciente});
+            "serialMedicamento":serialMedicamento,
+            "nombreMedicamento": nombreMedicamento,
+            "cantidadMedicamento": cantidadMedicamento,
+            "precioUnitario": precioUnitario,
+            "idProveedor": params.idProveedor});
         
         setId('')
-        setDescripcion('');
-        setFechaCita('');
-        setHoraCita('')
-        setEstadoCita('');
-        setPrecio('');
+        setSerialMedicamento('');
+        setNombreMedicamento('');
+        setCantidadMedicamento('')
+        setPrecioUnitario('')
         
-
     }
 
     const {msg} = alerta
 
     
     return (
-        <Transition.Root show={ modalFormularioCita } as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalCita}>
+        <Transition.Root show={ modalFormularioMedicamento } as={Fragment}>
+            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalMedicamento}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
@@ -114,7 +108,7 @@ const ModalFormularioCita = () => {
                                 <button
                                     type="button"
                                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={ handleModalCita }
+                                    onClick={ handleModalMedicamento }
                                 >
                                 <span className="sr-only">Cerrar</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -127,104 +121,84 @@ const ModalFormularioCita = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        {id ? 'Editar cita':'Programar nueva cita'}
+                                        {id ? 'Editar Medicamento':'Ingresar nuevo Medicamento'}
                                     </Dialog.Title>
 
                                     {msg && <Alerta alerta ={alerta}/>}
 
                                     <form
-                                        onSubmit={hanldeSubmit} 
+                                        onSubmit={handleSubmit} 
                                         className='my-10'
                                     >
                                         <div className='mb-5'>
                                             <label
                                                 className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='descripcion'
+                                                htmlFor='serialMedicamento'
                                             >
-                                                Descripcion de cita
-                                            </label>
-                                            <textarea
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="a"
-                                                id="nombre"
-                                                placeholder='Descripcion de la cita'
-                                                value={descripcion}
-                                                onChange={e => setDescripcion(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='estadoCita'
-                                            >
-                                                Estado de la cita
-                                            </label>
-                                            <select
-                                                className='border-2 w-full p-2 mt-2 rounded-md'
-                                                id='estadoCita'
-                                                value={estadoCita}
-                                                onChange={e => setEstadoCita(e.target.value)}
-                                            >
-                                                <option value=''>Seleccione una opción</option>
-                                                <option value='Pendiente'>Pendiente</option>
-                                                <option value='Atendida'>Atendida</option>
-                                                <option value='Cancelada'>Cancelada</option>
-                                            </select>
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='fechaCita'
-                                            >
-                                                Fecha de la cita
-                                            </label>
-                                            <input
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="date"
-                                                id="fechaCita"
-                                                placeholder='Fecha de la cita'
-                                                value={fechaCita}
-                                                onChange={e => setFechaCita(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='horaCita'
-                                            >
-                                                Hora de cita
-                                            </label>
-                                            <input
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="time"
-                                                id="horaCita"
-                                                placeholder='Hora de la cita'
-                                                value={horaCita}
-                                                onChange={e => setHoraCita(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='precio'
-                                            >
-                                                Costo de la cita
+                                                Serial de Medicamento
                                             </label>
                                             <input
                                                 className='border-2 w-full p-2 mt-2 placeholder-gray-400 
                                                            rounded-md'
                                                 type="text"
-                                                id="precio"
-                                                placeholder='Costo de la cita'
-                                                value={precio}
-                                                onChange={e => setPrecio(e.target.value)}
+                                                id="serialMedicamento"
+                                                placeholder='Serial del Medicamento'
+                                                value={serialMedicamento}
+                                                onChange={e => setSerialMedicamento(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='nombreMedicamento'
+                                            >
+                                                Nombre del Medicamento
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="nombreMedicamento"
+                                                placeholder='Nombre del Medicamento'
+                                                value={nombreMedicamento}
+                                                onChange={e => setNombreMedicamento(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='cantidadMedicamento'
+                                            >
+                                                Cantidad de medicamento ingresado
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="cantidadMedicamento"
+                                                placeholder='Cantidad de medicamento ingresado'
+                                                value={cantidadMedicamento}
+                                                onChange={e => setCantidadMedicamento(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='precioUnitario'
+                                            >
+                                                Precio Unitario de Venta al consumidor final
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="precioUnitario"
+                                                placeholder='Precio Unitario de Venta al consumidor final'
+                                                value={precioUnitario}
+                                                onChange={e => setPrecioUnitario(e.target.value)}
                                             />
                                         </div>
 
@@ -234,7 +208,7 @@ const ModalFormularioCita = () => {
                                                          p-3 text-white uppercase font-bold
                                                          cursor-pointer transition-colors
                                                          rounded-md'
-                                            value={id ? 'Guardar Cambios':'Agendar cita'}  
+                                            value={id ? 'Guardar Cambios':'Ingresar Medicamento'}  
                                         />
 
                                     </form>
@@ -248,4 +222,4 @@ const ModalFormularioCita = () => {
     )
 }
 
-export default ModalFormularioCita
+export default ModalFormularioMedicamento

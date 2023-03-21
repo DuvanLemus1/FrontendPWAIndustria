@@ -1,18 +1,24 @@
 
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useParams, Link } from "react-router-dom"
 
 import useProveedores from "../hooks/UseProveedor.jsx";
-
+import ModalFormularioMedicamento from "../components/ModalFormularioMedicamento.jsx";
+import ModalEliminarMedicamento from "../components/ModalEliminarMedicamento.jsx";
+import Medicamento from "../components/Medicamento.jsx";
+import Alerta from "../components/Alerta.jsx";
 
 const Proveedor = () => {
 
   const params =useParams();
 
-  const {obtenerProveedor, proveedor, cargando} = useProveedores();
+  const {obtenerProveedor,
+         proveedor,
+         medicamentos, 
+         cargando,
+         handleModalMedicamento,
+         alerta} = useProveedores();
   
-  
-
   useEffect(()=>{
     obtenerProveedor(params.idProveedor)
   }, []);
@@ -25,6 +31,10 @@ const Proveedor = () => {
         } = proveedor 
 
   if(cargando) return 'Cargando...'
+
+  const {msg} = alerta;
+
+
   return (
     <>
     <div className="flex justify-between">
@@ -39,6 +49,7 @@ const Proveedor = () => {
           className='uppercase font-bold'
         >Editar</Link>
         <button
+        onClick={handleModalMedicamento}
         type="button"
         className="text-sm px-5 py-3 w-full md:w-auto rounded-md
                    uppercase font-bold bg-sky-400 text-white
@@ -55,12 +66,30 @@ const Proveedor = () => {
       </div>
       
     </div>
-    <div className="my-7 " >
+    <div className="my-7 bg-white p-2 shadow rounded-lg" >
       <p className="mt-3">Telefono: {telefonoProveedor}</p>
       <p className="mt-3">correo Electronico: {correoElectronicoProveedor}</p>
       <p className="mt-3">direccion Proveedor: {direccionProveedor}</p>
     </div>
 
+    <h3 className="text-2xl text-sky-700 font-bold mb-3">Medicamentos de este proveedor</h3>
+
+    {msg && <Alerta alerta={alerta}/>}
+
+    <div className="bg-white shadow mt-7 rounded-lg">
+      {medicamentos?.length ? 
+      medicamentos.map(medicamento =>(
+        <Medicamento
+          key={medicamento.idMedicamento}
+          medicamento={medicamento}
+        />
+      )):
+      <p className="text-center my-5 p-10">Este proveedor no cuenta con medicamentos ingresados en la clinica</p>}
+
+        
+    </div >
+    <ModalFormularioMedicamento/>
+    <ModalEliminarMedicamento/>
     
     </>
   )

@@ -15,6 +15,8 @@ const PacientesProvider = ({children}) => {
     const [cargando, setCargando] = useState(false);
     const [modalFormularioCita, setModalFormularioCita] = useState(false)
     const [cita, setCita] = useState({});
+    const [modalEliminarCita, setModalEliminarCita] = useState(false);
+
 
 
     const navigate = useNavigate();
@@ -258,9 +260,43 @@ const PacientesProvider = ({children}) => {
         }
     }
 
+    const eliminarCita = async () =>{
+        try {
+            const token =  localStorage.getItem('token');
+            console.log(token);
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.delete(`http://localhost:4000/api/citas/${cita.idCita}`, config);
+            setAlerta({
+                msg:data.msg,
+                error:false
+            })
+
+            setModalEliminarCita(false)
+            setCita({})
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     const handleModalEditarCita = cita =>{
         setCita(cita);
         setModalFormularioCita(true);
+    }
+
+    const handleModalEliminarCita = cita =>{
+        setCita(cita);
+        setModalEliminarCita(!modalEliminarCita)
     }
 
     return(
@@ -279,7 +315,10 @@ const PacientesProvider = ({children}) => {
                 handleModalCita,
                 submitCita,
                 handleModalEditarCita,
-                cita
+                cita,
+                modalEliminarCita,
+                handleModalEliminarCita,
+                eliminarCita
                 
             }}
         >{children}

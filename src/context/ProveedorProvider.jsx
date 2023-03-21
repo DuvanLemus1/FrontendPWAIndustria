@@ -10,9 +10,12 @@ const ProveedoresProvider = ({children}) => {
     const [alerta, setAlerta] = useState({});
 
     const [proveedor, setProveedor] = useState('');
+    const [medicamentos, setMedicamentos] = useState([])
     const [cargando, setCargando] = useState(false);
 
-    const [modalFormularioCita, setModalFormularioCita] = useState(false);
+    const [modalFormularioMedicamento, setModalFormularioMedicamento] = useState(false);
+    const [medicamento, setMedicamento] = useState({});
+    const [modalEliminarMedicamento, setModalEliminarMedicamento] = useState(false);
 
     const navigate = useNavigate();
 
@@ -51,90 +54,86 @@ const ProveedoresProvider = ({children}) => {
     
     const submitProveedor = async proveedor =>{
         
-        
-        
-    const editarProveedor = async proveedor =>{
-        try {
-            const token =  localStorage.getItem('token');
-            
-            if(!token) return;
-            
-            const config = {
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+        const editarProveedor = async proveedor =>{
+            try {
+                const token =  localStorage.getItem('token');
+                
+                if(!token) return;
+                
+                const config = {
+                    headers:{
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            }
 
-            const {data} = await axios.put(`http://localhost:4000/api/proveedores/${proveedor.id}`,proveedor, config);
-            
-            //Sincronizar el state
-            const proveedoresActualizados = 
-            proveedores.map(proveedorState => 
-                proveedorState.idProveedor === data.idProveedor ?
-                data:
-                proveedorState);
-                setProveedores(proveedoresActualizados);
+                const {data} = await axios.put(`http://localhost:4000/api/proveedores/${proveedor.id}`,proveedor, config);
+                
+                //Sincronizar el state
+                const proveedoresActualizados = 
+                proveedores.map(proveedorState => 
+                    proveedorState.idProveedor === data.idProveedor ?
+                    data:
+                    proveedorState);
+                    setProveedores(proveedoresActualizados);
+
+                    setAlerta({
+                        msg:'Proveedor actualizado exitosamente',
+                        error:false
+                    })
+        
+                    setTimeout(()=>{
+                        setAlerta({})
+                        navigate('/proveedores');
+                    }, 3000)
+
+
+                
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        const nuevoProveedor= async proveedor =>{
+            try {
+                
+                const token =  localStorage.getItem('token');
+                console.log(token);
+                if(!token) return;
+                
+                const config = {
+                    headers:{
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
+                const {data} = await axios.post('http://localhost:4000/api/proveedores', proveedor, config)
+                
+                setProveedores([...proveedores, data])
 
                 setAlerta({
-                    msg:'Proveedor actualizado exitosamente',
+                    msg:'Proveedor registrado exitosamente',
                     error:false
                 })
-    
+
                 setTimeout(()=>{
                     setAlerta({})
                     navigate('/proveedores');
                 }, 3000)
-
-
+                
+            } catch (error) {
+                console.log(error)
+            }
             
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const nuevoProveedor= async proveedor =>{
-        try {
-            
-            const token =  localStorage.getItem('token');
-            console.log(token);
-            if(!token) return;
-            
-            const config = {
-                headers:{
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
             }
 
-            const {data} = await axios.post('http://localhost:4000/api/proveedores', proveedor, config)
-            
-            setProveedores([...proveedores, data])
-
-            setAlerta({
-                msg:'Proveedor registrado exitosamente',
-                error:false
-            })
-
-            setTimeout(()=>{
-                setAlerta({})
-                navigate('/proveedores');
-            }, 3000)
-            
-        } catch (error) {
-            console.log(error)
-        }
-        
-        }
-
-        if(proveedor.id){
-           await editarProveedor(proveedor)
-        }else{
-            await nuevoProveedor(proveedor)
-        }
+            if(proveedor.id){
+            await editarProveedor(proveedor)
+            }else{
+                await nuevoProveedor(proveedor)
+            }
     }
-
-
 
     const obtenerProveedor= async (idProveedor) => {
         setCargando(true);
@@ -151,8 +150,11 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios(`http://localhost:4000/api/proveedores/${idProveedor}`,config)
-            setProveedor(data)
+            const {data} = await axios(`http://localhost:4000/api/proveedores/${idProveedor}`, config);
+            const {proveedor, medicamentos} = data;
+            setProveedor(proveedor);
+            setMedicamentos(medicamentos);
+
         } catch (error) {
             console.log(error)
         } finally{
@@ -193,9 +195,108 @@ const ProveedoresProvider = ({children}) => {
         }
     }
 
-    const handleModalCita=()=>{
-        setModalFormularioCita(!modalFormularioCita)
+    const handleModalMedicamento=()=>{
+        setModalFormularioMedicamento(!modalFormularioMedicamento);
+        setMedicamento({});
     }
+
+    const submitMedicamento = async medicamento =>{
+        if(medicamento.id){
+            await editarMedicamento(medicamento);
+
+        }else{
+            await crearMedicamento(medicamento)
+        }
+    }
+
+    const crearMedicamento = async medicamento =>{
+        try {
+            const token =  localStorage.getItem('token');
+            
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.post(`http://localhost:4000/api/medicamentos/`, medicamento, config);
+            console.log(data);
+            setMedicamentos([...medicamentos, data])
+            setAlerta({})
+            setModalFormularioMedicamento(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const editarMedicamento = async medicamento => {
+        try {
+            const token =  localStorage.getItem('token');
+            console.log(token);
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.put(`http://localhost:4000/api/medicamentos/${medicamento.id}`, medicamento, config);
+            console.log(data);
+            
+            setAlerta({})
+            setModalFormularioMedicamento(false)
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const eliminarMedicamento = async () =>{
+        try {
+            const token =  localStorage.getItem('token');
+            console.log(token);
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.delete(`http://localhost:4000/api/medicamentos/${medicamento.idMedicamento}`, config);
+            setAlerta({
+                msg:data.msg,
+                error:false
+            })
+
+            setModalEliminarMedicamento(false)
+            setMedicamento({})
+
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const handleModalEditarMedicamento = medicamento =>{
+        setMedicamento(medicamento);
+        setModalFormularioMedicamento(true);
+    }
+
+    const handleModalEliminarMedicamento = medicamento =>{
+        setMedicamento(medicamento);
+        setModalEliminarMedicamento(!modalEliminarMedicamento)
+    }
+
+
 
     return(
         <ProveedoresContext.Provider
@@ -207,9 +308,16 @@ const ProveedoresProvider = ({children}) => {
                 obtenerProveedor,
                 proveedor,
                 cargando,
+                medicamentos,
                 eliminarProveedor,
-                modalFormularioCita,
-                handleModalCita
+                modalFormularioMedicamento,
+                handleModalMedicamento,
+                submitMedicamento,
+                handleModalEditarMedicamento,
+                medicamento,
+                modalEliminarMedicamento,
+                handleModalEliminarMedicamento,
+                eliminarMedicamento
             }}
         >{children}
         </ProveedoresContext.Provider>

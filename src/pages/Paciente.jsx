@@ -4,7 +4,11 @@ import { useParams, Link } from "react-router-dom"
 
 import usePacientes from "../hooks/UsePacientes.jsx";
 import ModalFormularioCita from "../components/ModalFormularioCita.jsx";
+import ModalEliminarCita from "../components/ModalEliminarCita";
 import Cita from "../components/Cita.jsx";
+import Alerta from "../components/Alerta.jsx";
+
+
 
 const Paciente = () => {
 
@@ -14,7 +18,8 @@ const Paciente = () => {
          paciente, 
          citas, 
          cargando,
-         handleModalCita} = usePacientes();
+         handleModalCita,
+         alerta} = usePacientes();
   
   //const [modal, setModal] = useState(false)
   
@@ -31,6 +36,8 @@ const Paciente = () => {
         } = paciente 
 
   if(cargando) return 'Cargando...'
+
+  const {msg} = alerta;
 
   return (
     <>
@@ -58,9 +65,7 @@ const Paciente = () => {
           Programar Cita
         
         </button>
-        <ModalFormularioCita
         
-        />
 
       </div>
       
@@ -74,6 +79,7 @@ const Paciente = () => {
 
     <h3 className="text-2xl text-sky-700 font-bold mb-3">Citas de este paciente</h3>
 
+    {msg && <Alerta alerta={alerta}/>}
     <div className="bg-white shadow mt-7 rounded-lg">
       {citas?.length ? 
       citas.map(cita =>(
@@ -86,7 +92,8 @@ const Paciente = () => {
 
         
     </div >
-    
+    <ModalFormularioCita/>
+    <ModalEliminarCita/>
       
 
     
