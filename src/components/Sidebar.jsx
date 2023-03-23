@@ -11,6 +11,7 @@ const Sidebar = () => {
         <aside className="md:w-80 lg:w-96 px-5 py-10">
 
             <p className="text-xl font-bold"> Hola, {auth.nombreDoctor}. </p>
+            <p className="text-sm font-bold">Tu suscripcion termina en: {auth.fechaFinSuscripcion.toString()}</p>
             
             <Link
                 to="/pacientes/crearPaciente"
