@@ -17,12 +17,11 @@ const PacientesProvider = ({children}) => {
     const [cita, setCita] = useState({});
     const [modalEliminarCita, setModalEliminarCita] = useState(false);
 
-
-
     const navigate = useNavigate();
 
     useEffect(()=>{
         const obtenerPacientes = async()=>{
+            setCargando(true);
             try {
             const token =  localStorage.getItem('token');
             
@@ -40,6 +39,8 @@ const PacientesProvider = ({children}) => {
             
             } catch (error) {
                 console.log(error)
+            }finally{
+                setCargando(false)
             }
         }
         obtenerPacientes();

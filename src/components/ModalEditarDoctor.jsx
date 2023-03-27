@@ -4,80 +4,48 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useParams, Link } from 'react-router-dom'
 import Alerta from './Alerta'
 
-import usePacientes from '../hooks/UsePacientes'
+import useDoctor from '../hooks/UseDoctor'
+import useAuth from '../hooks/UseAuth'
 
-const ModalFormularioCita = () => {
+const ModalEditarDoctor = () => {
  
-    const [id, setId] = useState('')
-    const [descripcion, setDescripcion] = useState('')
-    const [fechaCita, setFechaCita] = useState('')
-    const [horaCita, setHoraCita] = useState('')
-    const [estadoCita, setEstadoCita] = useState('')
-    const [precio, setPrecio] = useState('')
+    
+    const [nombreDoctor, setNombreDoctor] = useState('')
+    const [telefono, setTelefono] = useState('')
+    const [contrasena, setContrasena] = useState('')
+    
 
-    const params = useParams()
-
-    const {modalFormularioCita, 
-           handleModalCita, 
+    const {modalEditarDoctor, 
+           handleModalEditarDoctor, 
            mostrarAlerta, 
            alerta, 
-           submitCita,
-           cita } = usePacientes();
+           submitEditarDoctor,
+           doctor } = useDoctor();
 
-    useEffect(()=>{
-        if(cita?.idCita){
-            setId(cita.idCita)
-            setDescripcion(cita.descripcion);
-            setFechaCita(cita.fechaCita);
-            setHoraCita(cita.horaCita);
-            setEstadoCita(cita.estadoCita);
-            setPrecio(cita.precio);
-            return;
-        }
-        setId('');
-        setDescripcion('');
-        setFechaCita('');
-        setHoraCita('');
-        setEstadoCita('');
-        setPrecio('');
+    
 
-    },[cita])
-
-    const hanldeSubmit = async e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
 
-        if([descripcion, fechaCita, horaCita, estadoCita, precio].includes('')){
-            mostrarAlerta({
-                msg:'Todos los campos son obligatorios',
-                error:true
-            })
-            return;
-        }
-        await submitCita({
-            "id":id,
-            "descripcion":descripcion,
-            "fechaCita": fechaCita,
-            "horaCita": horaCita,
-            "estadoCita": estadoCita,
-            "precio": precio,
-            "idPaciente": params.idPaciente});
         
-        setId('')
-        setDescripcion('');
-        setFechaCita('');
-        setHoraCita('')
-        setEstadoCita('');
-        setPrecio('');
+        await submitEditarDoctor({
+            
+            "nombreDoctor":nombreDoctor,
+            "telefono": telefono,
+            "contrasena": contrasena});
         
-
+        setNombreDoctor('');
+        setTelefono('')
+        setContrasena('')
+        
     }
 
-    const {msg} = alerta
+    
 
     
     return (
-        <Transition.Root show={ modalFormularioCita } as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalCita}>
+        <Transition.Root show={ modalEditarDoctor } as={Fragment}>
+            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalEditarDoctor}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
@@ -114,7 +82,7 @@ const ModalFormularioCita = () => {
                                 <button
                                     type="button"
                                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={ handleModalCita }
+                                    onClick={ handleModalEditarDoctor }
                                 >
                                 <span className="sr-only">Cerrar</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -127,104 +95,66 @@ const ModalFormularioCita = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        {id ? 'Editar cita':'Programar nueva cita'}
+                                        Ajustar Datos Personaes
                                     </Dialog.Title>
 
-                                    {msg && <Alerta alerta ={alerta}/>}
+                                    
 
                                     <form
-                                        onSubmit={hanldeSubmit} 
+                                        onSubmit={handleSubmit} 
                                         className='my-10'
                                     >
                                         <div className='mb-5'>
                                             <label
                                                 className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='descripcion'
+                                                htmlFor='nombreDoctor'
                                             >
-                                                Descripcion de cita
-                                            </label>
-                                            <textarea
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="a"
-                                                id="nombre"
-                                                placeholder='Descripcion de la cita'
-                                                value={descripcion}
-                                                onChange={e => setDescripcion(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='estadoCita'
-                                            >
-                                                Estado de la cita
-                                            </label>
-                                            <select
-                                                className='border-2 w-full p-2 mt-2 rounded-md'
-                                                id='estadoCita'
-                                                value={estadoCita}
-                                                onChange={e => setEstadoCita(e.target.value)}
-                                            >
-                                                <option value=''>Seleccione una opción</option>
-                                                <option value='Pendiente'>Pendiente</option>
-                                                <option value='Atendida'>Atendida</option>
-                                                <option value='Cancelada'>Cancelada</option>
-                                            </select>
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='fechaCita'
-                                            >
-                                                Fecha de la cita
-                                            </label>
-                                            <input
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="date"
-                                                id="fechaCita"
-                                                placeholder='Fecha de la cita'
-                                                value={fechaCita}
-                                                onChange={e => setFechaCita(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='horaCita'
-                                            >
-                                                Hora de cita
-                                            </label>
-                                            <input
-                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
-                                                           rounded-md'
-                                                type="time"
-                                                id="horaCita"
-                                                placeholder='Hora de la cita'
-                                                value={horaCita}
-                                                onChange={e => setHoraCita(e.target.value)}
-                                            />
-                                        </div>
-
-                                        <div className='mb-5'>
-                                            <label
-                                                className='text-gray-700 uppercase font-bold text-sm'
-                                                htmlFor='precio'
-                                            >
-                                                Costo de la cita
+                                                Nombre
                                             </label>
                                             <input
                                                 className='border-2 w-full p-2 mt-2 placeholder-gray-400 
                                                            rounded-md'
                                                 type="text"
-                                                id="precio"
-                                                placeholder='Costo de la cita'
-                                                value={precio}
-                                                onChange={e => setPrecio(e.target.value)}
+                                                id="nombreDoctor"
+                                                placeholder='Nombre'
+                                                value={nombreDoctor}
+                                                onChange={e => setNombreDoctor(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='telefono'
+                                            >
+                                                Telefono
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="telefono"
+                                                placeholder='Telefono'
+                                                value={telefono}
+                                                onChange={e => setTelefono(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='contrasena'
+                                            >
+                                                Contrasena
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="contrasena"
+                                                placeholder='contrasena'
+                                                value={contrasena}
+                                                onChange={e => setContrasena(e.target.value)}
                                             />
                                         </div>
 
@@ -234,7 +164,7 @@ const ModalFormularioCita = () => {
                                                          p-3 text-white uppercase font-bold
                                                          cursor-pointer transition-colors
                                                          rounded-md'
-                                            value={id ? 'Guardar Cambios':'Agendar cita'}  
+                                            value='Guardar Cambios'
                                         />
 
                                     </form>
@@ -248,4 +178,4 @@ const ModalFormularioCita = () => {
     )
 }
 
-export default ModalFormularioCita
+export default ModalEditarDoctor

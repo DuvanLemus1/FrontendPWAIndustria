@@ -21,7 +21,6 @@ const Paciente = () => {
          handleModalCita,
          alerta} = usePacientes();
   
-  //const [modal, setModal] = useState(false)
   
   useEffect(()=>{
     obtenerPaciente(params.idPaciente)
