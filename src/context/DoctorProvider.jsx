@@ -11,6 +11,7 @@ const DoctorProvider = ({children}) => {
     const [doctor, setDoctor] = useState({});
     const [cargando, setCargando] = useState(false);
     const [modalEditarDoctor, setModalEditarDoctor] = useState(false)
+    const [modalEditarSuscripcion, setModalEditarSuscripcion]=useState(false)
 
 
     const obtenerDoctor  = async(idDoctor)=>{
@@ -35,7 +36,6 @@ const DoctorProvider = ({children}) => {
     }
 
     const {auth} = useAuth();
-    
     const idDoctor = auth.idDoctor
 
     const submitEditarDoctor = async (doctor) => {
@@ -56,7 +56,6 @@ const DoctorProvider = ({children}) => {
             
             setModalEditarDoctor(false)
 
-
         } catch (error) {
             console.log(error)
         }
@@ -64,9 +63,37 @@ const DoctorProvider = ({children}) => {
     
     const handleModalEditarDoctor = ()=>{
         setModalEditarDoctor(!modalEditarDoctor);
-        setDoctor({});
+        //setDoctor({});
         }
     
+    //-----------------------------------Suscripcion-----------------
+    const submitEditarSuscripcion = async (doctor) => {
+        try {
+            
+            const token =  localStorage.getItem('token');
+            
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.put(`http://localhost:4000/api/doctores/actualizarSuscripcionDoctor/${idDoctor}`, doctor, config);
+            
+            setModalEditarSuscripcion(false)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    const handleModalEditarSuscripcion = ()=>{
+        setModalEditarSuscripcion(!modalEditarSuscripcion);
+        //setDoctor({});
+        }
     
   return (
     <DoctorContext.Provider
@@ -79,8 +106,11 @@ const DoctorProvider = ({children}) => {
                 modalEditarDoctor,
                 setModalEditarDoctor,
                 handleModalEditarDoctor,
-                submitEditarDoctor
-                
+                submitEditarDoctor,
+                handleModalEditarSuscripcion,
+                submitEditarSuscripcion,
+                modalEditarSuscripcion,
+                setModalEditarSuscripcion    
             }}
         >{children}
         </DoctorContext.Provider>
