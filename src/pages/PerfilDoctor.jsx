@@ -29,12 +29,17 @@ const PerfilDoctor = () => {
          telefono,
          correoElectronico,
          fechaFinSuscripcion,
-         renovacionAutomatica
+         renovacionAutomatica,
+         fechaInicioNuevaSuscripcion
         } = doctor 
 
   const fechaFormateada = new Date(fechaFinSuscripcion)      
   const opciones = { month: "long" };
   const mesInicial = fechaFormateada.toLocaleString("es-Es", opciones);
+
+  const fechaFormateada2 = new Date(fechaInicioNuevaSuscripcion);
+  const opciones2 = {month:"long"};
+  const mesInicial2 = fechaFormateada2.toLocaleString("es-Es", opciones2)
         
   if(cargando) return 'Cargando...'
   return (
@@ -70,7 +75,21 @@ const PerfilDoctor = () => {
       <div className="bg-white rounded-md shadow-md p-3 mb-3">
         <p className="mb-3">Fecha fin de Suscripción: <span className="font-bold">
           {fechaFormateada.getUTCDate()}-{mesInicial}-{fechaFormateada.getFullYear()} </span></p>
-        <p className="">Renovacion automatica: <span className="font-bold">{renovacionAutomatica?'Activa':'Desactivada'}</span></p>
+        <p className=" mb-2">Renovación automática: <span className="font-bold">{renovacionAutomatica?'Activa':'Desactivada'}</span></p>
+        <hr className="border-black border rounded-lg my-3" />
+        <div className="flex justify-between">
+          <p className="mb-4">Próxima renovación:
+            <span className="font-bold">{fechaFormateada2.getUTCDate()}-{mesInicial2}-{fechaFormateada2.getFullYear()}</span>
+          </p>
+          <button
+            onClick={handleModalEditarSuscripcion}
+            className="rounded-lg p-1.5 bg-sky-500 font-bold text-white"
+          >Cancelar Próxima Suscripción</button>
+        </div>
+        <p className="font-bold my-2 mt-10">*Puedes cancelar la próxima renovación a tu suscripcion siempre y cuando no haya iniciado,
+                                       esto también ocasionará que la renovación automática de tu suscripción sea desactivada para
+                                       evitar recargos indeseados en tu tarjeta. Para reactivar tu renovación automática o expandir 
+                                       tu plan de suscripción, haz click en el botón "Administrar Suscripción"</p>
       </div>
 
       <ModalEditarDoctor/>

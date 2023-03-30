@@ -13,7 +13,7 @@ import useAuth from '../hooks/UseAuth'
 const ModalEditarSuscripcion = () => {
  
     const {auth} = useAuth()
-    console.log(auth.idDoctor)
+    
     console.log(auth.fechaFinSuscripcion)
     
     const [fechaInicioNuevaSuscripcion, setFechaInicioNuevaSuscripcion] = useState('')
@@ -21,6 +21,7 @@ const ModalEditarSuscripcion = () => {
     const [costoNuevaSuscripcion, setCostoNuevaSuscripcion] = useState('')
     const [renovacionAutomatica, setRenovacionAutomatica] = useState('')
     const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+    const [opcionSeleccionadaRenovacion, setOpcionSeleccionadaRenovacion]=useState('')
 
     const {modalEditarDoctor, 
            handleModalEditarDoctor, 
@@ -33,22 +34,21 @@ const ModalEditarSuscripcion = () => {
            setModalEditarSuscripcion,
            submitEditarSuscripcion   } = useDoctor();
 
-    const handleClick = (e) => {
-        const renovacionAutomatica = e.target.checked;
-        setRenovacionAutomatica(!renovacionAutomatica);
-          }
+    
         
     const handleOptionChange = (e) => {
     const opcionSeleccionada = e.target.value;
     const fechaInicio = new Date(auth.fechaFinSuscripcion);
     const anio = fechaInicio.getFullYear()
     const mes  = (fechaInicio.getMonth()+1).toString().padStart(2, '0'); 
-    const dia  = fechaInicio.getDate().toString().padStart(2, '0');
+    const dia  = fechaInicio.getUTCDate().toString().padStart(2, '0');
+    
     const fechaFormateada = `${anio}-${mes}-${dia}`
+    
     const fechaFormateadaOriginal = new Date(fechaFormateada);
           
     if (opcionSeleccionada === "1") {
-        fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 30);
+        fechaFormateadaOriginal.setUTCDate(fechaFormateadaOriginal.getDate() + 30);
         setCostoNuevaSuscripcion(100);
     } else if (opcionSeleccionada === "2") {
         fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 90);
@@ -68,6 +68,23 @@ const ModalEditarSuscripcion = () => {
     setFechaFinNuevaSuscripcion(fechaFormateada2);
     };  
 
+    const handleOptionChangeRenovacionAutomatica = (e)=>{
+        const opcionSeleccionadaRenovacion = e.target.value;
+        if (opcionSeleccionadaRenovacion === "1") {
+            setRenovacionAutomatica(1);
+            
+            console.log(renovacionAutomatica)
+        } 
+        else if(opcionSeleccionadaRenovacion === "0") {
+            setRenovacionAutomatica(0);
+            
+            console.log(renovacionAutomatica)
+        }
+
+        setOpcionSeleccionadaRenovacion(opcionSeleccionadaRenovacion);
+        //setRenovacionAutomatica(renovacionAutomatica);
+    }
+
     const handleSubmit = async e =>{
         e.preventDefault();
 
@@ -84,13 +101,10 @@ const ModalEditarSuscripcion = () => {
         setCostoNuevaSuscripcion('')
         setOpcionSeleccionada('')
         setRenovacionAutomatica('')
+        setOpcionSeleccionadaRenovacion('')
         
     }
 
-
-    
-
-    
     return (
         <Transition.Root show={ modalEditarSuscripcion } as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleModalEditarSuscripcion}>
@@ -161,8 +175,7 @@ const ModalEditarSuscripcion = () => {
                                                 <input
                                                 type="radio"
                                                 id="fechaInicioSuscripcion1"
-                                                name="opciones"
-                                                required
+                                                name="opciones" 
                                                 value="1"
                                                 onChange={handleOptionChange}
                                                 className="border p-2 rounded-md mb-4 mx-3"
@@ -173,7 +186,7 @@ const ModalEditarSuscripcion = () => {
                                                 type="radio"
                                                 id="fechaInicioSuscripcion2"
                                                 name="opciones"
-                                                required
+                                                
                                                 value="2"
                                                 onChange={handleOptionChange}
                                                 className="border p-2 rounded-md mb-4 mx-3 "
@@ -184,26 +197,37 @@ const ModalEditarSuscripcion = () => {
                                                 type="radio"
                                                 id="fechaInicioSuscripcion3"
                                                 name="opciones"
-                                                required
+                                                
                                                 value="3"
                                                 onChange={handleOptionChange}
                                                 className="border p-2 rounded-md mb-4 mx-3 "
                                                 />Anual</label>
                                             </div>
                                         </div>
-                                        <div className="flex justify-center">
-                                            <label htmlFor="renovacionAutomatica">
-                                            <input
-                                                onClick={handleClick}
-                                                className="mx-2" 
-                                                type="checkbox" 
-                                                id="renovacionAutomatica" 
-                                                name="renovacionAutomatica" 
-                                                value={renovacionAutomatica}
-                                                onChange={(e) => setRenovacionAutomatica(e.target.checked)}/>
-                                                Permitir renovacion automatica
-                                            </label>
-                                        </div>
+                                            <p className='flex justify-center mb-3'>
+                                                Permitir renovacion automatica</p>
+                                            <div className='flex justify-center'>
+                                                <label htmlFor="renovacionAutomatica" className="font-bold">
+                                                <input
+                                                type="radio"
+                                                id="renovacionAutomatica"
+                                                name="opcionesRenovacion"  
+                                                value="1"
+                                                onChange={handleOptionChangeRenovacionAutomatica}
+                                                className="border p-2 rounded-md mb-4 mx-3 "
+                                                />Si</label>
+
+                                                <label htmlFor="renovacionAutomatica" className="font-bold">
+                                                <input
+                                                type="radio"
+                                                id="renovacionAutomatica"
+                                                name="opcionesRenovacion"
+                                                value="0"
+                                                onChange={handleOptionChangeRenovacionAutomatica}
+                                                className="border p-2 rounded-md mb-4 mx-3 "
+                                                />No</label>
+                                            </div>
+
                                         </div>
 
                                         <input
