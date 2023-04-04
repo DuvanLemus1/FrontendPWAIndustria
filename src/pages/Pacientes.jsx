@@ -33,15 +33,16 @@ const Pacientes = () => {
         <input 
           type="search"
           placeholder="Buscar paciente por nombre o DNI"
-          className="rounded-lg lg:w-96 block p-2 border mt-2"
+          className="rounded-lg  lg:w-96  block p-2 border mt-2"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
       </div>
-      <div className="mt-10 justify-center p-5 bg-white shadow rounded-xl">
+
+      <div className="mt-10 justify-center p-5 bg-white  shadow rounded-xl  ">
       <div className="font-bold text-center" >
         <p>Nombres y DNI, para más información haga click en 
-          <span className="text-sky-500"> VER DETALLE</span></p>
+          <span className="text-gray-600"> VER DETALLE</span></p>
         
       </div>
 

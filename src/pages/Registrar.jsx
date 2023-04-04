@@ -116,7 +116,7 @@ const Registrar = () => {
           value={nombreDoctor}
           onChange={(e) => setNombreDoctor(e.target.value)}
           placeholder="Nombre"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80 "
         />
         
         <label htmlFor="correoElectronico" className="sr-only">
@@ -130,7 +130,7 @@ const Registrar = () => {
           value={correoElectronico}
           onChange={(e) => setCorreoElectronico(e.target.value)}
           placeholder="Correo electrónico"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80"
         />
 
         <div className="group relative m-1 flex justify-center">
@@ -144,7 +144,7 @@ const Registrar = () => {
           value={contrasena}
           onChange={(e) => setcontrasena(e.target.value)}
           placeholder="Contraseña"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80 "
         />
         <span className="absolute transition-all my-2 top-10 scale-0 rounded
                        bg-gray-800 p-2 text-sm text-white group-hover:scale-100">
@@ -166,11 +166,11 @@ const Registrar = () => {
           value={repetirContrasena}
           onChange={(e) => setRepetirContrasena(e.target.value)}
           placeholder="Repite tu contraseña"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80 "
         />
 
         <label htmlFor="telefono" className="sr-only">
-          Telefono
+          Teléfono
         </label>
         <input
           type="text"
@@ -180,14 +180,16 @@ const Registrar = () => {
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
           placeholder="Número de telefono"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80 "
         />
 
-        <div className="border p-2 rounded-lg shadow-md mb-3">
+        <div className="border p-2 rounded-lg shadow-md mb-3 ">
           <div >
             <p className="flex justify-center mb-3 ">
-              Elije tu tipo de suscripcion - LPS. 100.00 al mes</p>
-            <label htmlFor="fechaInicioSuscripcion1" className="font-bold">
+              Elije tu tipo de suscripción - LPS. 100.00 al mes</p>
+
+  
+            <label htmlFor="fechaInicioSuscripcion1" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion1"
@@ -195,9 +197,10 @@ const Registrar = () => {
               required
               value="1"
               onChange={handleOptionChange}
-              className="border p-2 rounded-md mb-4 mx-3"
+              className="border p-2 rounded-md mb-4 mx-3 "
             />Mensual</label>
-            <label htmlFor="fechaInicioSuscripcion2" className="font-bold">
+
+            <label htmlFor="fechaInicioSuscripcion2" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion2"
@@ -207,7 +210,8 @@ const Registrar = () => {
               onChange={handleOptionChange}
               className="border p-2 rounded-md mb-4 mx-3 "
             />Trimestral</label>
-            <label htmlFor="fechaInicioSuscripcion3" className="font-bold">
+
+            <label htmlFor="fechaInicioSuscripcion3" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion3"

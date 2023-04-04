@@ -65,7 +65,7 @@ const FormularioProveedor = () => {
   return (
     
     <form 
-        className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+        className="bg-white py-10 px-5 md:w-5/6 rounded-lg shadow"
         onSubmit={handleSubmit}
         >
 
