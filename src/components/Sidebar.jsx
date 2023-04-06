@@ -26,14 +26,14 @@ const Sidebar = () => {
          <img
             src = "../../src/assets/icons/control64_up.png"
             className={`absolute top-15 right-7 w-7 border-dark-purple
-            border-2 rounded-full visible md:invisible ${!open && "rotate-180"}`}
+            border-2 rounded-full  ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}
             /> 
         <p className="text-xl font-bold"> Hola, {auth.nombreDoctor}. </p>
         
         <p className="text-sm font-bold">Tu suscripcion termina en: {auth.fechaFinSuscripcion.toString()}</p>    
         
-        <ul className="pt-2 md:pt-6 grid justify-items-center md:justify-items-start">
+        <ul className="pt-2 md:pt-6 grid justify-items-center md:justify-items-start ">
         <div
             className={` ${
             open ? "h-70" : "h-0 "
@@ -50,7 +50,7 @@ const Sidebar = () => {
           <span className={`${!open && "hidden"} origin-top duration-500`}>
           <Link to={`${Menu.ir}`}><img src={`../src/assets/icons/${Menu.src}.png`} /></Link>
           </span >
-          <span className={`${!open && "hidden"} origin-top duration-500`}>
+          <span className={`${!open && "hidden" } origin-top duration-500`}>
           <Link to={`${Menu.ir}`}>{Menu.title}</Link>
           </span >
         </li>

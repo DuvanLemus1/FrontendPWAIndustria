@@ -25,13 +25,7 @@ const Header = () => {
                  Sistema de Pacientes 
             </h2>
 
-            <input 
-                type="search"
-                placeholder="Buscar Paciente"
-                className="rounded-lg w-full md:w-96  mt-5 mb-5  block p-2 border"
-                > 
-            
-            </input>
+        
 
             <div className="flex items-center gap-4">
                 <Link

@@ -188,8 +188,8 @@ const Registrar = () => {
             <p className="flex justify-center mb-3 ">
               Elije tu tipo de suscripción - LPS. 100.00 al mes</p>
 
-  
-            <label htmlFor="fechaInicioSuscripcion1" className="font-bold ">
+            <li className =" sm:flex list-none" >
+            <ul className =" px-20 sm:px-0"><label htmlFor="fechaInicioSuscripcion1" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion1"
@@ -198,9 +198,9 @@ const Registrar = () => {
               value="1"
               onChange={handleOptionChange}
               className="border p-2 rounded-md mb-4 mx-3 "
-            />Mensual</label>
+            />Mensual</label> </ul> 
 
-            <label htmlFor="fechaInicioSuscripcion2" className="font-bold ">
+            <ul className =" px-20 sm:px-0"><label htmlFor="fechaInicioSuscripcion2" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion2"
@@ -209,9 +209,9 @@ const Registrar = () => {
               value="2"
               onChange={handleOptionChange}
               className="border p-2 rounded-md mb-4 mx-3 "
-            />Trimestral</label>
+            />Trimestral</label> </ul>
 
-            <label htmlFor="fechaInicioSuscripcion3" className="font-bold ">
+            <ul className ="px-20 sm:px-0" ><label htmlFor="fechaInicioSuscripcion3" className="font-bold ">
             <input
               type="radio"
               id="fechaInicioSuscripcion3"
@@ -220,7 +220,8 @@ const Registrar = () => {
               value="3"
               onChange={handleOptionChange}
               className="border p-2 rounded-md mb-4 mx-3 "
-            />Anual</label>
+            />Anual</label></ul>
+            </li>
           </div>
           <div className="flex justify-center">
             <label htmlFor="renovacionAutomatica">
