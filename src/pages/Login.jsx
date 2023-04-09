@@ -57,16 +57,16 @@ const Login = () => {
   return (
     <>
       <div>
-        <h1 className="text-sky-600 font-black text-5xl capitalize text-center">Inicia Sesión y administra tu clínica</h1>
+        <h1 className="text-sky-600 font-black xl:text-5xl text-3xl capitalize text-center">Inicia Sesión y administra tu clínica</h1>
         <br></br>
       </div>
 
       {msg && <Alerta alerta={alerta}/>}
 
-      <form onSubmit={handleSubmit} className="flex flex-col p-5 items-center my-10 bg-white rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="flex flex-col p-5 items-center my-10 bg-white rounded-lg shadow md:w-5/6">
 
         <div >
-        <label htmlFor="correoElectronico" className="sr-only">
+        <label htmlFor="correoElectronico" className="sr-only ">
           Correo electrónico
         </label>
         <input
@@ -75,8 +75,8 @@ const Login = () => {
           name="correcoElectronico"
           value={correoElectronico}
           onChange={(e) => setCorreoElectronico(e.target.value)}
-          placeholder="Correo electrónico"
-          className="border p-2 rounded-md mb-4 w-64"
+          placeholder="Correo electrónico "
+          className="border p-2 rounded-md mb-4 sm:w-80 w-55"
         />
         </div>
         <label htmlFor="contrasena" className="sr-only">
@@ -90,7 +90,7 @@ const Login = () => {
           value={contrasena}
           onChange={(e) => setcontrasena(e.target.value)}
           placeholder="Contraseña"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80 w-55"
         />
         <div>
           <button

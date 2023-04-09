@@ -18,7 +18,7 @@ const PreviewPacientes = ({paciente}) => {
           
           <Link
               to={`${idPaciente}`}
-              className='text-gray-600 hover:text-gray-900 uppercase
+              className=' text-sky-500 hover:text-gray-900 uppercase
                           text-sm font-bold '
           >Ver Detalle</Link>
         

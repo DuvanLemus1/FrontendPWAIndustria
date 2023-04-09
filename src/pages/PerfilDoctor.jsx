@@ -45,24 +45,24 @@ const PerfilDoctor = () => {
   return (
     <>
       <div className="flex justify-between">
-        <div className="font-bold text-4xl text-sky-700 mb-5">
+        <div className="font-bold text-4xl text-sky-700 mb-7 mt-5">
           Mi Perfil
         </div>
-        <div>
+        <div  className="mt-5">
           <button
             onClick={handleModalEditarDoctor}
             className="rounded-lg p-2 bg-sky-500 font-bold text-white"
           >Actualizar Datos Personales</button>
         </div>
       </div>
-      <div className="bg-white rounded-md shadow-md p-3 mb-3">
+      <div className="bg-white rounded-md shadow-md p-3 mb-10">
         <p className="mb-3">Nombre: {nombreDoctor}</p>
         <p className="mb-3">Telefono: {telefono}</p>
         <p className="mb-3">Correo Electronico: {correoElectronico}</p>
       </div>
 
       <div className=" flex justify-between">
-        <div className="font-bold text-3xl text-sky-700 mb-5">
+        <div className="font-bold text-3xl text-sky-700 mb-7">
           Datos de mi suscripción 
         </div>
         <div>

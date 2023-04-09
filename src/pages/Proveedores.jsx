@@ -22,8 +22,8 @@ const Proveedores = () => {
       <div>
         <input 
           type="search"
-          placeholder="Buscar paciente por nombre o DNI"
-          className="rounded-lg lg:w-96 block p-2 border mt-2"
+          placeholder="Buscar proveedor por nombre o DNI"
+          className="rounded-lg w-full lg:w-80 block p-2 border mt-2"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
         />
@@ -32,7 +32,7 @@ const Proveedores = () => {
       <div className="mt-10 justify-center p-5 bg-white shadow rounded-xl">
       <div className="font-bold text-center" >
         <p>Nombres de Proveedores, para más información haga click en 
-          <span className="text-sky-500"> VER DETALLE</span></p>
+          <span className=" text-gray-600"> VER DETALLE</span></p>
         
       </div>
 
