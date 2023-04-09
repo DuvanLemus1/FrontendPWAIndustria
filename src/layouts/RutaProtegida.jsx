@@ -12,6 +12,7 @@ const RutaProtegida = () => {
         return 'Cargando...'
     }
 
+    
   return (
     <>
         {auth.idDoctor ?

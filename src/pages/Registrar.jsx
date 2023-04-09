@@ -7,6 +7,9 @@ import Alerta from "../components/Alerta.jsx";
 const Registrar = () => {
 
   const [nombreDoctor, setNombreDoctor] = useState("");
+  const [segundoNombreDoctor, setSegundoNombreDoctor] = useState("");
+  const [apellidoDoctor, setApellidoDoctor] = useState("");
+  const [segundoApellidoDoctor, setSegundoApellidoDoctor] = useState("");
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasena, setcontrasena] = useState("");
   const [repetirContrasena, setRepetirContrasena] = useState("");
@@ -38,6 +41,9 @@ const Registrar = () => {
     try {
       const {data} = await axios.post("http://localhost:4000/api/doctores", {
         "nombreDoctor":nombreDoctor,
+        "segundoNombreDoctor":segundoNombreDoctor,
+        "apellidoDoctor":apellidoDoctor,
+        "segundoApellidoDoctor":segundoApellidoDoctor,
         "correoElectronico":correoElectronico,
         "contrasena":contrasena,
         "telefono":telefono,
@@ -105,7 +111,7 @@ const Registrar = () => {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col p-5 items-center my-10 bg-white rounded-lg shadow">
-      <label htmlFor="nombreDoctor" className="sr-only">
+        <label htmlFor="nombreDoctor" className="sr-only">
           Nombre
         </label>
         <input
@@ -116,6 +122,45 @@ const Registrar = () => {
           value={nombreDoctor}
           onChange={(e) => setNombreDoctor(e.target.value)}
           placeholder="Nombre"
+          className="border p-2 rounded-md mb-4 w-64"
+        />
+        <label htmlFor="segundoNombreDoctor" className="sr-only">
+          Segundo Nombre
+        </label>
+        <input
+          type="text"
+          id="segundoNombreDoctor"
+          name="segundoNombreDoctor"
+          required
+          value={segundoNombreDoctor}
+          onChange={(e) => setSegundoNombreDoctor(e.target.value)}
+          placeholder="Segundo Nombre"
+          className="border p-2 rounded-md mb-4 w-64"
+        />
+        <label htmlFor="apellidoDoctor" className="sr-only">
+          Apellido
+        </label>
+        <input
+          type="text"
+          id="apellidoDoctor"
+          name="apellidoDoctor"
+          required
+          value={apellidoDoctor}
+          onChange={(e) => setApellidoDoctor(e.target.value)}
+          placeholder="Apellido"
+          className="border p-2 rounded-md mb-4 w-64"
+        />
+        <label htmlFor="segundoApellidoDoctor" className="sr-only">
+          Segundo Apellido
+        </label>
+        <input
+          type="text"
+          id="segundoApellidoDoctor"
+          name="segundoApellidoDoctor"
+          required
+          value={segundoApellidoDoctor}
+          onChange={(e) => setSegundoApellidoDoctor(e.target.value)}
+          placeholder="Segundo Apellido"
           className="border p-2 rounded-md mb-4 w-64"
         />
         

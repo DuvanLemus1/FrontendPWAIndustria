@@ -31,6 +31,8 @@ import EditarProveedor from './pages/EditarProveedor.jsx';
 import Home from './pages/Home.jsx';
 
 import PerfilDoctor from './pages/PerfilDoctor.jsx';
+import PanelDeControl from './pages/PanelDeControl.jsx';
+
 
 function App() {
   
@@ -59,6 +61,10 @@ function App() {
                 <Route path='/perfilDoctor' element={<RutaProtegida/>} >
                   <Route index element = {<PerfilDoctor/>}/>
                 </Route >
+
+                <Route path='/panelDeControl' element={<RutaProtegida/> }>
+                  <Route index element ={<PanelDeControl/>} />
+                </Route>
 
                 <Route path='/pacientes' element={<RutaProtegida/>} >
                   <Route index element = {<Pacientes/>}/>

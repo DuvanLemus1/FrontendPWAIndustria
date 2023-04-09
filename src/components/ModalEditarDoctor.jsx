@@ -11,6 +11,9 @@ const ModalEditarDoctor = () => {
  
     
     const [nombreDoctor, setNombreDoctor] = useState('')
+    const [segundoNombreDoctor, setSegundoNombreDoctor] = useState('')
+    const [apellidoDoctor, setApellidoDoctor] = useState('')
+    const [segundoApellidoDoctor, setSegundoApellidoDoctor] = useState('')
     const [telefono, setTelefono] = useState('')
     const [contrasena, setContrasena] = useState('')
     
@@ -31,12 +34,18 @@ const ModalEditarDoctor = () => {
         await submitEditarDoctor({
             
             "nombreDoctor":nombreDoctor,
+            "segundoNombreDoctor":segundoNombreDoctor,
+            "apellidoDoctor":apellidoDoctor,
+            "segundoApellidoDoctor":segundoApellidoDoctor,
             "telefono": telefono,
             "contrasena": contrasena});
         
         setNombreDoctor('');
-        setTelefono('')
-        setContrasena('')
+        setSegundoNombreDoctor('');
+        setApellidoDoctor('');
+        setSegundoApellidoDoctor('');
+        setTelefono('');
+        setContrasena('');
         
     }
 
@@ -119,6 +128,60 @@ const ModalEditarDoctor = () => {
                                                 placeholder='Nombre'
                                                 value={nombreDoctor}
                                                 onChange={e => setNombreDoctor(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='segundoNombreDoctor'
+                                            >
+                                                Nombre
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="segundoNombreDoctor"
+                                                placeholder='Segundo Nombre'
+                                                value={segundoNombreDoctor}
+                                                onChange={e => setSegundoNombreDoctor(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='apellidoDoctor'
+                                            >
+                                                Nombre
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="apellidoDoctor"
+                                                placeholder='Apellido'
+                                                value={apellidoDoctor}
+                                                onChange={e => setApellidoDoctor(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-700 uppercase font-bold text-sm'
+                                                htmlFor='segundoApellidoDoctor'
+                                            >
+                                                Nombre
+                                            </label>
+                                            <input
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 
+                                                           rounded-md'
+                                                type="text"
+                                                id="segundoApellidoDoctor"
+                                                placeholder='Segundo Apellido'
+                                                value={segundoApellidoDoctor}
+                                                onChange={e => setSegundoApellidoDoctor(e.target.value)}
                                             />
                                         </div>
 
