@@ -31,32 +31,42 @@ const Sidebar = () => {
             /> 
         <p className="text-xl font-bold"> Hola, {auth.nombreDoctor}. </p>
         
-        <p className="text-sm font-bold">Tu suscripcion termina en: {auth.fechaFinSuscripcion.toString()}</p>    
+        <p className="text-sm font-bold">Tu suscripcion termina en: {auth.fechaFinSuscripcion}</p>    
         
         <ul className="pt-2 md:pt-6 grid justify-items-center md:justify-items-start ">
-        <div
-            className={` ${
-            open ? "h-70" : "h-0 "
-            }  relative duration-300 `}
-        >
-      {Menus.map((Menu, index) => (
-        <li
-          key={index}
-          className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sky-600 font-bold text-lg gap-x-4
-          ${Menu.gap ? "mt-9" : "mt-2"} ${
-            index === 0 && "bg-light-white"
-          } `}
-        >
-          <span className={`${!open && "hidden"} origin-top duration-500`}>
-          <Link to={`${Menu.ir}`}><img src={`../src/assets/icons/${Menu.src}.png`} /></Link>
-          </span >
-          <span className={`${!open && "hidden" } origin-top duration-500`}>
-          <Link to={`${Menu.ir}`}>{Menu.title}</Link>
-          </span >
-        </li>
-      ))}
-      </div>
-    </ul>
+            <div
+                className={` ${
+                open ? "h-70" : "h-0 "
+                }  relative duration-300 `}
+            >
+              {Menus.map((Menu, index) => (
+            <li
+              key={index}
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-sky-600 font-bold text-lg gap-x-4
+              ${Menu.gap ? "mt-9" : "mt-2"} ${
+                index === 0 && "bg-light-white"
+              } `}
+            >
+              <span className={`${!open && "hidden"} origin-top duration-500`}>
+              <Link to={`${Menu.ir}`}><img src={`../src/assets/icons/${Menu.src}.png`} /></Link>
+              </span >
+              <span className={`${!open && "hidden" } origin-top duration-500`}>
+              <Link to={`${Menu.ir}`}>{Menu.title}</Link>
+              </span >
+            </li>
+          ))}
+          </div>
+        </ul>
+        <div className="mt-3">
+          {authState.rol==='administrador'?
+            <Link 
+            className="bg-sky-400 text-xl rounded-md p-3 mt-3 font-bold text-white"
+            to={'/panelDeControl'}
+            >Panel de Control</Link>:
+            <Link></Link>}
+          
+        </div>
+
    
     </aside>
     

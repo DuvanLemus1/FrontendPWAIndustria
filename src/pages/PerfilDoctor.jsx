@@ -6,6 +6,7 @@ import useDoctor from "../hooks/UseDoctor.jsx";
 import useAuth from "../hooks/UseAuth.jsx";
 import ModalEditarDoctor from "../components/ModalEditarDoctor.jsx";
 import ModalEditarSuscripcion from "../components/ModalEditarSuscripcion.jsx";
+import ModalCancelarSuscripcion from "../components/ModalCancelarSuscripcion.jsx";
 
 const PerfilDoctor = () => {
 
@@ -17,7 +18,9 @@ const PerfilDoctor = () => {
          modalEditarDoctor, 
          handleModalEditarDoctor,
          modalEditarSuscripcion,
-         handleModalEditarSuscripcion} = useDoctor();
+         handleModalEditarSuscripcion,
+         modalCancelarSuscripcion,
+         handleModalCancelarSuscripcion} = useDoctor();
   
   
   useEffect(()=>{
@@ -28,6 +31,7 @@ const PerfilDoctor = () => {
   const {nombreDoctor,
          telefono,
          correoElectronico,
+         tipoSuscripcion,
          fechaFinSuscripcion,
          renovacionAutomatica,
          fechaInicioNuevaSuscripcion
@@ -73,6 +77,10 @@ const PerfilDoctor = () => {
         </div>
       </div>
       <div className="bg-white rounded-md shadow-md p-3 mb-3">
+        <p className="mb-3">Tipo de suscripcion: 
+                            <span className="font-bold">{tipoSuscripcion === 1 ? ' Mensual':
+                             tipoSuscripcion === 2 ? ' Trimestral':
+                             ' Anual'}</span></p>
         <p className="mb-3">Fecha fin de Suscripción: <span className="font-bold">
           {fechaFormateada.getUTCDate()}-{mesInicial}-{fechaFormateada.getFullYear()} </span></p>
         <p className=" mb-2">Renovación automática: <span className="font-bold">{renovacionAutomatica?'Activa':'Desactivada'}</span></p>
@@ -82,7 +90,7 @@ const PerfilDoctor = () => {
             <span className="font-bold">{fechaFormateada2.getUTCDate()}-{mesInicial2}-{fechaFormateada2.getFullYear()}</span>
           </p>
           <button
-            onClick={handleModalEditarSuscripcion}
+            onClick={handleModalCancelarSuscripcion}
             className="rounded-lg p-1.5 bg-sky-500 font-bold text-white"
           >Cancelar Próxima Suscripción</button>
         </div>
@@ -94,6 +102,7 @@ const PerfilDoctor = () => {
 
       <ModalEditarDoctor/>
       <ModalEditarSuscripcion/>
+      <ModalCancelarSuscripcion/>
 
     </>
   )

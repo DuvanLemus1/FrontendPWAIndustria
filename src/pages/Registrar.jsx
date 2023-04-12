@@ -15,6 +15,7 @@ const Registrar = () => {
   const [repetirContrasena, setRepetirContrasena] = useState("");
   const [telefono, setTelefono] = useState("");
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [tipoSuscripcion, setTipoSuscripcion] = useState("");
   const [fechaInicioSuscripcion, setFechaInicioSuscripcion]= useState("");
   const [fechaFinSuscripcion, setFechaFinSuscripcion]= useState("");
   const [costoSuscripcion, setCostoSuscripcion] = useState("")
@@ -47,6 +48,7 @@ const Registrar = () => {
         "correoElectronico":correoElectronico,
         "contrasena":contrasena,
         "telefono":telefono,
+        "tipoSuscripcion":tipoSuscripcion,
         "fechaInicioSuscripcion":fechaInicioSuscripcion,
         "fechaFinSuscripcion":fechaFinSuscripcion,
         "costoSuscripcion":costoSuscripcion,
@@ -83,12 +85,15 @@ const Registrar = () => {
   
     if (opcionSeleccionada === "1") {
       fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 30);
+      setTipoSuscripcion(1);
       setCostoSuscripcion(100);
     } else if (opcionSeleccionada === "2") {
       fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 90);
+      setTipoSuscripcion(2);
       setCostoSuscripcion(300);
     } else if (opcionSeleccionada === "3") {
       fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 365);
+      setTipoSuscripcion(3);
       setCostoSuscripcion(1200);
     }
   

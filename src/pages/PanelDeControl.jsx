@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
+import useAuth from '../hooks/UseAuth.jsx'
 
 const PanelDeControl = () => {
+    const {auth} = useAuth();
     const [doctores, setDoctores] = useState([]);
 
     //td className="px-4 py-2 text-left text-gray-600 hover:text-gray-800
@@ -20,11 +22,13 @@ const PanelDeControl = () => {
         }
 
         const obtenerDoctores = async () => {
-          try {
-            const {data} = await axios('http://localhost:4000/api/doctores/obtenerDoctores', config);
-            setDoctores(data);
-          } catch (error) {
-            console.log(error);
+          if(auth.rol==='administrador'){
+            try {
+              const {data} = await axios('http://localhost:4000/api/doctores/obtenerDoctores', config);
+              setDoctores(data);
+            } catch (error) {
+              console.log(error);
+            }
           }
         };
     

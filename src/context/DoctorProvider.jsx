@@ -12,7 +12,7 @@ const DoctorProvider = ({children}) => {
     const [cargando, setCargando] = useState(false);
     const [modalEditarDoctor, setModalEditarDoctor] = useState(false)
     const [modalEditarSuscripcion, setModalEditarSuscripcion]=useState(false)
-
+    const [modalCancelarSuscripcion, setModalCancelarSuscripcion]=useState(false)
 
     const obtenerDoctor  = async(idDoctor)=>{
         try {
@@ -92,9 +92,35 @@ const DoctorProvider = ({children}) => {
     
     const handleModalEditarSuscripcion = ()=>{
         setModalEditarSuscripcion(!modalEditarSuscripcion);
-        //setDoctor({});
         }
     
+    //----------------Cancelar Suscripcion------------------
+    const submitCancelarSuscripcion = async (idDoctor) => {
+        try {
+            const token =  localStorage.getItem('token');
+            
+            if(!token) return;
+            
+            const config = {
+                headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const {data} = await axios.put(`http://localhost:4000/api/doctores/cancelarSuscripcion/${idDoctor}`, doctor, config);
+            setModalCancelarSuscripcion(false)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const handleModalCancelarSuscripcion = ()=>{
+        setModalCancelarSuscripcion(!modalCancelarSuscripcion);
+        }
+
   return (
     <DoctorContext.Provider
             value={{
@@ -110,7 +136,11 @@ const DoctorProvider = ({children}) => {
                 handleModalEditarSuscripcion,
                 submitEditarSuscripcion,
                 modalEditarSuscripcion,
-                setModalEditarSuscripcion    
+                setModalEditarSuscripcion,
+                submitCancelarSuscripcion,
+                handleModalCancelarSuscripcion,
+                modalCancelarSuscripcion,
+                setModalCancelarSuscripcion    
             }}
         >{children}
         </DoctorContext.Provider>
