@@ -40,7 +40,12 @@ const HistoricoSuscripciones = () => {
         <div className="container mx-auto p-4 ">
             
           <h2 className="text-2xl font-bold mb-4">Historico de Suscripciones</h2>
+            <p className='mb-5'><span className='p-2 bg-amber-300 rounded-md font-bold'>Total:
+            {' '}{historicoSuscripciones.reduce((total, historicoSuscripcion) => total + parseInt(historicoSuscripcion.costoSuscripcion), 0)}{'.00'}
+            </span></p>
+          
           <div className='flex justify-center '>
+            
           <table className="table-auto w-full">
             <thead>
               <tr>
@@ -68,7 +73,7 @@ const HistoricoSuscripciones = () => {
                 <td colSpan="2"></td>
                 <td className="px-4 py-2 text-left font-bold bg-green-300 ">Total:</td>
                 <td className="px-4 py-2 text-left font-bold bg-green-300 ">
-                {historicoSuscripciones.reduce((total, historicoSuscripcion) => total + parseInt(historicoSuscripcion.costoSuscripcion), 0)}
+                {historicoSuscripciones.reduce((total, historicoSuscripcion) => total + parseInt(historicoSuscripcion.costoSuscripcion), 0)}{'.00'}
                 </td>
                 <td colSpan="2"></td>
               </tr>
