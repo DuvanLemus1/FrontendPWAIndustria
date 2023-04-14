@@ -1,20 +1,35 @@
 
 import { Link, useNavigate } from "react-router-dom"
-
-
-
+import { useState, useEffect } from 'react';
+import useAuth from "../hooks/UseAuth";
+import useDoctor from "../hooks/UseDoctor.jsx";
 
 const Header = () => {
-    const navigate = useNavigate();
+
     
 
+    const {auth} = useAuth();
+    const {obtenerDoctor, 
+           doctor} = useDoctor();
+ 
+ 
+    useEffect(()=>{
+    obtenerDoctor(auth.idDoctor)
+    }, []);
+
+    const {rol} = doctor
+
+    
+    const navigate = useNavigate();
     const handleClick = ()=>{
         localStorage.removeItem('token')
         
         setTimeout(()=>{
             navigate('/');
-        }, 1000)
+        }, 500)
     }
+
+    
 
   return (
     <>
@@ -41,6 +56,16 @@ const Header = () => {
                                 hover:text-sky-700 
                                 transition-colors p-5"
                 >Lista de Proveedores</Link>
+
+
+                {rol==='administrador'?
+                <Link 
+                className="bg-sky-400 text-sm rounded-md p-2.5 mt-3 font-bold text-white uppercase"
+                to={'/panelDeControl'}
+                >Panel de Control</Link>:
+                <Link></Link>}
+          
+        
                 <button
                     type="button"
                     className="text-white text-sm bg-sky-600 rounded-md uppercase p-2.5  font-bold "

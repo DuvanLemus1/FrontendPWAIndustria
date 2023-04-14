@@ -14,14 +14,14 @@ const ModalEditarSuscripcion = () => {
  
     const {auth} = useAuth()
     
-    console.log(auth.fechaFinSuscripcion)
     
-    const [fechaInicioNuevaSuscripcion, setFechaInicioNuevaSuscripcion] = useState('')
-    const [fechaFinNuevaSuscripcion, setFechaFinNuevaSuscripcion] = useState('')
-    const [costoNuevaSuscripcion, setCostoNuevaSuscripcion] = useState('')
-    const [renovacionAutomatica, setRenovacionAutomatica] = useState('')
+    const [tipoNuevaSuscripcion, setTipoNuevaSuscripcion] = useState('');
+    const [fechaInicioNuevaSuscripcion, setFechaInicioNuevaSuscripcion] = useState('');
+    const [fechaFinNuevaSuscripcion, setFechaFinNuevaSuscripcion] = useState('');
+    const [costoNuevaSuscripcion, setCostoNuevaSuscripcion] = useState('');
+    const [renovacionAutomatica, setRenovacionAutomatica] = useState('');
     const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
-    const [opcionSeleccionadaRenovacion, setOpcionSeleccionadaRenovacion]=useState('')
+    const [opcionSeleccionadaRenovacion, setOpcionSeleccionadaRenovacion]=useState('');
 
     const {modalEditarDoctor, 
            handleModalEditarDoctor, 
@@ -50,12 +50,15 @@ const ModalEditarSuscripcion = () => {
     if (opcionSeleccionada === "1") {
         fechaFormateadaOriginal.setUTCDate(fechaFormateadaOriginal.getDate() + 30);
         setCostoNuevaSuscripcion(100);
+        setTipoNuevaSuscripcion(1)
     } else if (opcionSeleccionada === "2") {
         fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 90);
         setCostoNuevaSuscripcion(300);
+        setTipoNuevaSuscripcion(2);
     } else if (opcionSeleccionada === "3") {
         fechaFormateadaOriginal.setDate(fechaFormateadaOriginal.getDate() + 365);
         setCostoNuevaSuscripcion(1200);
+        setTipoNuevaSuscripcion(3);
     }
           
     const anio2 = fechaFormateadaOriginal.getFullYear()
@@ -91,11 +94,13 @@ const ModalEditarSuscripcion = () => {
         
         await submitEditarSuscripcion({
             
+            "tipoNuevaSuscripcion":tipoNuevaSuscripcion,
             "fechaInicioNuevaSuscripcion":fechaInicioNuevaSuscripcion,
             "fechaFinNuevaSuscripcion": fechaFinNuevaSuscripcion,
             "costoNuevaSuscripcion": costoNuevaSuscripcion,
             "renovacionAutomatica": renovacionAutomatica});
         
+        setTipoNuevaSuscripcion('');
         setFechaInicioNuevaSuscripcion('');
         setFechaFinNuevaSuscripcion('')
         setCostoNuevaSuscripcion('')

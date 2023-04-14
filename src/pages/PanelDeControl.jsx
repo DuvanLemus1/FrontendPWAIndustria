@@ -6,9 +6,8 @@ import useAuth from '../hooks/UseAuth.jsx'
 const PanelDeControl = () => {
     const {auth} = useAuth();
     const [doctores, setDoctores] = useState([]);
-
-    //td className="px-4 py-2 text-left text-gray-600 hover:text-gray-800
-    //transition-colors"><a href={`${doctor.idDoctor}`}>Accion</a></td>
+    
+    
     useEffect(() => {
         const token =  localStorage.getItem('token');
         
@@ -25,15 +24,38 @@ const PanelDeControl = () => {
           if(auth.rol==='administrador'){
             try {
               const {data} = await axios('http://localhost:4000/api/doctores/obtenerDoctores', config);
+              
               setDoctores(data);
             } catch (error) {
               console.log(error);
             }
           }
         };
-    
+
         obtenerDoctores();
+        
       }, []);
+
+      useEffect(() => {
+        
+
+        const comprobarSuscripciones = async () => {
+          if(auth.rol==='administrador'){
+            try {
+              const {data} = await axios.put('http://localhost:4000/api/doctores/comprobarSuscripciones');
+              
+              console.log('Exito')
+              console.log(data.mensaje)
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        };
+
+        comprobarSuscripciones();
+        
+      }, []);
+
 
       const eliminarDoctor = async (idDoctor) =>{
         const token =  localStorage.getItem('token');

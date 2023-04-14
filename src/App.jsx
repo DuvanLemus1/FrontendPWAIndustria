@@ -32,6 +32,7 @@ import Home from './pages/Home.jsx';
 
 import PerfilDoctor from './pages/PerfilDoctor.jsx';
 import PanelDeControl from './pages/PanelDeControl.jsx';
+import HistoricoSuscripciones from './pages/HistoricoSuscripciones.jsx';
 
 
 function App() {
@@ -64,6 +65,10 @@ function App() {
 
                 <Route path='/panelDeControl' element={<RutaProtegida/> }>
                   <Route index element ={<PanelDeControl/>} />
+                </Route>
+
+                <Route path='/historicoSuscripciones' element={<RutaProtegida/> }>
+                  <Route index element ={<HistoricoSuscripciones/>} />
                 </Route>
 
                 <Route path='/pacientes' element={<RutaProtegida/>} >

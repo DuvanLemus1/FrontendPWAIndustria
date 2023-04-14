@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import useAuth from '../hooks/UseAuth.jsx'
 import { useState, useEffect } from "react";
+import useDoctor from "../hooks/UseDoctor.jsx";
 
 const Sidebar = () => {
 
@@ -13,15 +14,19 @@ const Sidebar = () => {
         { title: "Mi Perfil", src: "miperfil64", ir:"/perfilDoctor"}
       ];
 
-    const [authState, setAuthState] = useState(auth);
+      const {obtenerDoctor, 
+        doctor} = useDoctor();
 
-            useEffect(() => {
-            setAuthState(auth);
-            }, [auth]);
+
+    useEffect(()=>{
+    obtenerDoctor(auth.idDoctor)
+    }, []);
+
+    const {nombreDoctor,
+           apellidoDoctor} = doctor
 
     return (
-      
-        
+       
         <aside className="md:w-80 lg:w-96 px-5 py-3">
          <img
             src = "../../src/assets/icons/control64_up.png"
@@ -29,10 +34,8 @@ const Sidebar = () => {
             border-2 rounded-full  ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}
             /> 
-        <p className="text-xl font-bold"> Hola, {auth.nombreDoctor}. </p>
-        
-        <p className="text-sm font-bold">Tu suscripcion termina en: {auth.fechaFinSuscripcion}</p>    
-        
+        <p className="text-xl font-bold"> Hola, {nombreDoctor} {apellidoDoctor}. </p>
+            
         <ul className="pt-2 md:pt-6 grid justify-items-center md:justify-items-start ">
             <div
                 className={` ${
@@ -57,17 +60,7 @@ const Sidebar = () => {
           ))}
           </div>
         </ul>
-        <div className="mt-3">
-          {authState.rol==='administrador'?
-            <Link 
-            className="bg-sky-400 text-xl rounded-md p-3 mt-3 font-bold text-white"
-            to={'/panelDeControl'}
-            >Panel de Control</Link>:
-            <Link></Link>}
-          
-        </div>
-
-   
+        
     </aside>
     
     

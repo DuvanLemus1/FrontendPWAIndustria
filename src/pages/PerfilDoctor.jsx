@@ -32,6 +32,7 @@ const PerfilDoctor = () => {
          telefono,
          correoElectronico,
          tipoSuscripcion,
+         tipoNuevaSuscripcion,
          fechaFinSuscripcion,
          renovacionAutomatica,
          fechaInicioNuevaSuscripcion
@@ -86,13 +87,19 @@ const PerfilDoctor = () => {
         <p className=" mb-2">Renovación automática: <span className="font-bold">{renovacionAutomatica?'Activa':'Desactivada'}</span></p>
         <hr className="border-black border rounded-lg my-3" />
         <div className="flex justify-between">
+          {fechaInicioNuevaSuscripcion===null?'':
           <p className="mb-4">Próxima renovación:
-            <span className="font-bold">{fechaFormateada2.getUTCDate()}-{mesInicial2}-{fechaFormateada2.getFullYear()}</span>
-          </p>
+            <span className="font-bold">{fechaFormateada2.getUTCDate()}-{mesInicial2}-{fechaFormateada2.getFullYear()}
+            {tipoNuevaSuscripcion===1?' - Mensual':
+             tipoNuevaSuscripcion===2?' - Trimestral':
+             tipoNuevaSuscripcion===3?' - Anual':'' }</span>
+          </p>}
+
+          {fechaInicioNuevaSuscripcion===null?'':
           <button
             onClick={handleModalCancelarSuscripcion}
             className="rounded-lg p-1.5 bg-sky-500 font-bold text-white"
-          >Cancelar Próxima Suscripción</button>
+          >Cancelar Próxima Suscripción</button>}
         </div>
         <p className="font-bold my-2 mt-10">*Puedes cancelar la próxima renovación a tu suscripcion siempre y cuando no haya iniciado,
                                        esto también ocasionará que la renovación automática de tu suscripción sea desactivada para
