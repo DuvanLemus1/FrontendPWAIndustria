@@ -48,6 +48,7 @@ const HistoricoSuscripciones = () => {
                 <th className="px-4 py-2 text-left">Fecha Inicio</th>
                 <th className="px-4 py-2 text-left">Fecha Fin</th>
                 <th className="px-4 py-2 text-left">Costo</th>
+                <th className="px-4 py-2 text-left">ID Doctor</th>
                 <th className='px-4 py-2 text-left'>Doctor</th>
               </tr>
             </thead>
@@ -58,10 +59,19 @@ const HistoricoSuscripciones = () => {
                   <td className="px-4 py-2 text-left">{historicoSuscripciones.fechaInicioSuscripcion}</td>
                   <td className="px-4 py-2 text-left">{historicoSuscripciones.fechaFinSuscripcion}</td>
                   <td className="px-4 py-2 text-left">{historicoSuscripciones.costoSuscripcion}</td>
+                  <td className="px-4 py-2 text-left">{historicoSuscripciones.idDoctor}</td>
                   <td className='px-4 py-2 text-left'>{historicoSuscripciones.doctore.nombreDoctor} 
                                                        {' '}{historicoSuscripciones.doctore.apellidoDoctor}</td>
                 </tr>
               ))}
+              <tr>
+                <td colSpan="2"></td>
+                <td className="px-4 py-2 text-left font-bold bg-green-300 ">Total:</td>
+                <td className="px-4 py-2 text-left font-bold bg-green-300 ">
+                {historicoSuscripciones.reduce((total, historicoSuscripcion) => total + parseInt(historicoSuscripcion.costoSuscripcion), 0)}
+                </td>
+                <td colSpan="2"></td>
+              </tr>
               
             </tbody>
             
