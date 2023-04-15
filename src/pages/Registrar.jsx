@@ -29,15 +29,44 @@ const Registrar = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if([nombreDoctor, correoElectronico, contrasena, repetirContrasena, telefono].includes('')){
+    const regexNumeros=/\d/;
+
+    if(regexNumeros.test(nombreDoctor)         ||
+       regexNumeros.test(segundoNombreDoctor)  ||
+       regexNumeros.test(apellidoDoctor)       ||
+       regexNumeros.test(segundoApellidoDoctor)){
       setAlerta({
-        msg:'Todos los campos son obligatorios',
+        msg:'Los campos que conforman tu nombre no pueden contener números',
         error:true
       })
       return;
     }
 
+    const regexLetras=/^\d+$/;
+    if(!regexLetras.test(telefono)){
+      setAlerta({
+        msg:'Tu número de teléfono no puede contener letras',
+        error:true
+      })
+      return;
+    }
     
+    const regexContrasena = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+~`\-={}[\]:;"'<>,.?/\\])(?!.*\s).{8,15}$/;
+    if(!regexContrasena.test(contrasena)){
+      setAlerta({
+        msg:'Sigue las especificaciones de contrasena para potenciar la seguridad de tu cuenta',
+        error:true
+      })
+      return;
+    }
+
+    if(contrasena!==repetirContrasena){
+      setAlerta({
+        msg:'Las contrasenas no son iguales',
+        error:true
+      })
+      return;
+    }
 
     try {
       const {data} = await axios.post("http://localhost:4000/api/doctores", {
@@ -58,7 +87,7 @@ const Registrar = () => {
         msg:data.msg,
         error:false
       })
-      console.log(data);
+      
     } catch (error) {
       setAlerta({
         msg:error.response.data.msg,
@@ -136,7 +165,7 @@ const Registrar = () => {
           type="text"
           id="segundoNombreDoctor"
           name="segundoNombreDoctor"
-          required
+          
           value={segundoNombreDoctor}
           onChange={(e) => setSegundoNombreDoctor(e.target.value)}
           placeholder="Segundo Nombre"
@@ -162,7 +191,7 @@ const Registrar = () => {
           type="text"
           id="segundoApellidoDoctor"
           name="segundoApellidoDoctor"
-          required
+          
           value={segundoApellidoDoctor}
           onChange={(e) => setSegundoApellidoDoctor(e.target.value)}
           placeholder="Segundo Apellido"
@@ -176,7 +205,7 @@ const Registrar = () => {
           type="email"
           id="correoElectronico"
           name="correcoElectronico"
-          
+          required
           value={correoElectronico}
           onChange={(e) => setCorreoElectronico(e.target.value)}
           placeholder="Correo electrónico"
@@ -191,6 +220,7 @@ const Registrar = () => {
           type="password"
           id="contrasena"
           name="contrasena"
+          required
           value={contrasena}
           onChange={(e) => setcontrasena(e.target.value)}
           placeholder="Contraseña"
@@ -199,11 +229,11 @@ const Registrar = () => {
         <span className="absolute transition-all my-2 top-10 scale-0 rounded
                        bg-gray-800 p-2 text-sm text-white group-hover:scale-100">
                         🔒 Tu contraseña debe cumplir los siguientes requisitos:
-                        <br/> ⦁ Entre 8 y 12 caracteres
+                        <br/> ⦁ Entre 8 y 15 caracteres
                         <br/> ⦁ Al menos un número
                         <br/> ⦁ Una letra minúscula
                         <br/> ⦁ Una letra mayúscula 
-                        <br/> ⦁ Un caracter especial</span>
+                        <br/> ⦁ Un caracter especial ()</span>
         </div>
         <label htmlFor="repetirContrasena" className="sr-only">
           Repetir Contraseña

@@ -64,6 +64,12 @@ const Header = () => {
                 to={'/panelDeControl'}
                 >Panel de Control</Link>:
                 <Link></Link>}
+                {rol==='administrador'?
+                <Link 
+                className="bg-sky-400 text-sm rounded-md p-2.5 mt-3 font-bold text-white uppercase"
+                to={'/historicoSuscripciones'}
+                >Historico</Link>:
+                <Link></Link>}
           
         
                 <button
