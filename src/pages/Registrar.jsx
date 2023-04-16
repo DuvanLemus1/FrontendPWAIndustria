@@ -169,7 +169,7 @@ const Registrar = () => {
           value={segundoNombreDoctor}
           onChange={(e) => setSegundoNombreDoctor(e.target.value)}
           placeholder="Segundo Nombre"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80"
         />
         <label htmlFor="apellidoDoctor" className="sr-only">
           Apellido
@@ -182,7 +182,7 @@ const Registrar = () => {
           value={apellidoDoctor}
           onChange={(e) => setApellidoDoctor(e.target.value)}
           placeholder="Apellido"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80"
         />
         <label htmlFor="segundoApellidoDoctor" className="sr-only">
           Segundo Apellido
@@ -195,7 +195,7 @@ const Registrar = () => {
           value={segundoApellidoDoctor}
           onChange={(e) => setSegundoApellidoDoctor(e.target.value)}
           placeholder="Segundo Apellido"
-          className="border p-2 rounded-md mb-4 w-64"
+          className="border p-2 rounded-md mb-4 sm:w-80"
         />
         
         <label htmlFor="correoElectronico" className="sr-only">
