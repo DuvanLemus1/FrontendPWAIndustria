@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
 import Alerta from "../components/Alerta.jsx";
-
+import dotenv from "dotenv"
 
 const Registrar = () => {
 
@@ -69,7 +69,7 @@ const Registrar = () => {
     }
 
     try {
-      const {data} = await axios.post("http://localhost:4000/api/doctores", {
+      const {data} = await axios.post(`${process.env.BACKEND_URL}/doctores`, {
         "nombreDoctor":nombreDoctor,
         "segundoNombreDoctor":segundoNombreDoctor,
         "apellidoDoctor":apellidoDoctor,
