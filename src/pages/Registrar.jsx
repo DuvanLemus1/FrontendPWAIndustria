@@ -69,7 +69,7 @@ const Registrar = () => {
     }
 
     try {
-      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/doctores`, {
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/doctores`, {
         "nombreDoctor":nombreDoctor,
         "segundoNombreDoctor":segundoNombreDoctor,
         "apellidoDoctor":apellidoDoctor,
