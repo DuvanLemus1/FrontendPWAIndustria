@@ -11,7 +11,7 @@ export default defineConfig({
       manifest: {
         icons: [
           {
-            src:"/cuadrado.png",
+            src:"pwa512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"
