@@ -69,7 +69,7 @@ const Registrar = () => {
     }
 
     try {
-      const {data} = await axios.post(`http://34.227.27.145:8080/api/doctores`, {
+      const {data} = await axios.post(`${process.env.BACKEND_URL}/doctores`, {
         "nombreDoctor":nombreDoctor,
         "segundoNombreDoctor":segundoNombreDoctor,
         "apellidoDoctor":apellidoDoctor,
