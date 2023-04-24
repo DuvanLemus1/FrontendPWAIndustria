@@ -40,7 +40,7 @@ const Proveedores = () => {
       filteredProveedores.map((proveedor) => (
         <PreviewProveedores key={proveedor.idProveedor} proveedor={proveedor} />
       )) :
-      <p className="mt-5 text-center text-gray-600 uppercase">No hay ningún Proveedor, ingrese uno</p>
+      <p className="mt-5 text-center text-gray-600 uppercase">No hay ningún Proveedor, ingrese uno para comenzar</p>
       }
       </div>
 

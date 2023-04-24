@@ -92,14 +92,14 @@ const FormularioProveedor = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="telefonoProveedor"
-                >Numero de Telefono</label>
+                >Número de Teléfono</label>
 
                 <input
                     id="telefonoProveedor"
                     type='text'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Telefono del Proveedor"
+                    placeholder="Teléfono del Proveedor"
                     value={telefonoProveedor}
                     onChange={e => setTelefonoProveedor(e.target.value)}
                 />
@@ -109,14 +109,14 @@ const FormularioProveedor = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="correoElectronicoProveedor"
-                >Correo Electronico Proveedor</label>
+                >Correo Electrónico Proveedor</label>
 
                 <input
                     id="correoElectronicoProveedor"
                     type='email'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Correo Electronico del Proveedor"
+                    placeholder="Correo Electrónico del Proveedor"
                     value={correoElectronicoProveedor}
                     onChange={e => setCorreoElectronicoProveedor(e.target.value)}
                 />
@@ -126,7 +126,7 @@ const FormularioProveedor = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="direccionProveedor"
-                >Direccion</label>
+                >Dirección</label>
 
                 <input
                     id="direccionProveedor"

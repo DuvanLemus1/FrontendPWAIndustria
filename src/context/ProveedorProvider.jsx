@@ -32,7 +32,7 @@ const ProveedoresProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            const {data} = await axios('http://localhost:4000/api/proveedores', config);
+            const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/proveedores`, config);
               
             setProveedores(data)
             
@@ -67,7 +67,7 @@ const ProveedoresProvider = ({children}) => {
                     }
                 }
 
-                const {data} = await axios.put(`http://localhost:4000/api/proveedores/${proveedor.id}`,proveedor, config);
+                const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${proveedor.id}`,proveedor, config);
                 
                 //Sincronizar el state
                 const proveedoresActualizados = 
@@ -108,7 +108,7 @@ const ProveedoresProvider = ({children}) => {
                     }
                 }
 
-                const {data} = await axios.post('http://localhost:4000/api/proveedores', proveedor, config)
+                const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/proveedores`, proveedor, config)
                 
                 setProveedores([...proveedores, data])
 
@@ -150,7 +150,7 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios(`http://localhost:4000/api/proveedores/${idProveedor}`, config);
+            const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${idProveedor}`, config);
             const {proveedor, medicamentos} = data;
             setProveedor(proveedor);
             setMedicamentos(medicamentos);
@@ -175,7 +175,7 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.delete(`http://localhost:4000/api/proveedores/${idProveedor}`, config)
+            const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/proveedores/${idProveedor}`, config)
             
             const proveedoresActualizados = proveedores.filter(proveedorState=>proveedorState.idProveedor!==idProveedor)
             setProveedores(proveedoresActualizados);
@@ -222,7 +222,7 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.post(`http://localhost:4000/api/medicamentos/`, medicamento, config);
+            const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/medicamentos/`, medicamento, config);
             console.log(data);
             setMedicamentos([...medicamentos, data])
             setAlerta({})
@@ -245,7 +245,7 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.put(`http://localhost:4000/api/medicamentos/${medicamento.id}`, medicamento, config);
+            const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/medicamentos/${medicamento.id}`, medicamento, config);
             console.log(data);
             
             setAlerta({})
@@ -270,7 +270,7 @@ const ProveedoresProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.delete(`http://localhost:4000/api/medicamentos/${medicamento.idMedicamento}`, config);
+            const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/medicamentos/${medicamento.idMedicamento}`, config);
             setAlerta({
                 msg:data.msg,
                 error:false

@@ -114,14 +114,14 @@ const FormularioPaciente = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="telefono"
-                >Numero de Telefono</label>
+                >Número de Telefono</label>
 
                 <input
                     id="telefono"
                     type='text'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Telefono del Paciente"
+                    placeholder="Teléfono del Paciente"
                     value={telefonoPaciente}
                     onChange={e => setTelefonoPaciente(e.target.value)}
                 />
@@ -131,14 +131,14 @@ const FormularioPaciente = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="correoElectronicoPaciente"
-                >Correo Electronico</label>
+                >Correo Electrónico</label>
 
                 <input
                     id="correoElectronicoPaciente"
                     type='email'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Correo Electronico"
+                    placeholder="Correo Electrónico"
                     value={correoElectronicoPaciente}
                     onChange={e => setCorreoElectronicoPaciente(e.target.value)}
                 />
@@ -148,14 +148,14 @@ const FormularioPaciente = () => {
                 <label 
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="direccionPaciente"
-                >Direccion</label>
+                >Dirección</label>
 
                 <input
                     id="direccionPaciente"
                     type='text'
                     className="border-2 w-full p-2 mt-2
                             placeholder-gray-400 rounded-md "
-                    placeholder="Direccion"
+                    placeholder="Dirección"
                     value={direccionPaciente}
                     onChange={e => setDireccionPaciente(e.target.value)}
                 />

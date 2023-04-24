@@ -190,14 +190,14 @@ const ModalEditarDoctor = () => {
                                                 className='text-gray-700 uppercase font-bold text-sm'
                                                 htmlFor='telefono'
                                             >
-                                                Telefono
+                                                Teléfono
                                             </label>
                                             <input
                                                 className='border-2 w-full p-2 mt-2 placeholder-gray-400 
                                                            rounded-md'
                                                 type="text"
                                                 id="telefono"
-                                                placeholder='Telefono'
+                                                placeholder='Teléfono'
                                                 value={telefono}
                                                 onChange={e => setTelefono(e.target.value)}
                                             />

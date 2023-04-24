@@ -84,7 +84,7 @@ const Proveedor = () => {
           medicamento={medicamento}
         />
       )):
-      <p className="text-center my-5 p-10">Este proveedor no cuenta con medicamentos ingresados en la clinica</p>}
+      <p className="text-center my-5 p-10">Este proveedor no cuenta con medicamentos ingresados en la clínica</p>}
 
         
     </div >

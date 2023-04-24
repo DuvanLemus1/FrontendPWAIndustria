@@ -37,7 +37,7 @@ const Header = () => {
         <div className="md:flex md:justify-between ">
             <h2 className="text-4xl text-sky-600 font-black 
                            text-center">
-                 Sistema de Pacientes 
+                 Administración de Clínica 
             </h2>
 
         
@@ -68,7 +68,7 @@ const Header = () => {
                 <Link 
                 className="bg-sky-400 text-sm rounded-md p-2.5 mt-3 font-bold text-white uppercase"
                 to={'/historicoSuscripciones'}
-                >Historico</Link>:
+                >Histórico</Link>:
                 <Link></Link>}
           
         

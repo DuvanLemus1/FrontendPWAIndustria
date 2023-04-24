@@ -70,7 +70,7 @@ const ModalEliminarMedicamento = () => {
                                     </Dialog.Title>
                                     <div className='mt-2'>
                                         <p className='text-sm text-gray-600'>
-                                            Un Medicamento eliminado no se puede recuperar, tomalo en cuenta
+                                            Un Medicamento eliminado no se puede recuperar, procede con precaución
                                         </p>
                                     </div>
                                 </div>

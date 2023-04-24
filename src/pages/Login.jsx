@@ -32,7 +32,7 @@ const Login = () => {
     }
 
     try {
-      const {data} = await axios.post("http://localhost:4000/api/doctores/login", {
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/login`, {
         "correoElectronico":correoElectronico,
         "contrasena":contrasena,
       });
@@ -109,7 +109,7 @@ const Login = () => {
 
         <nav className="lg:flex lg:justify-between">
           <Link to='olvideContrasena' className="block text-center my-5 text-slate-600 hover:text-sky-500 transition-colors duration-200 uppercase text-sm">
-            ¿Olvidaste tu contrasena? Reestablécela
+            ¿Olvidaste tu contraseña? Reestablécela
           </Link>
         </nav>
     </form>

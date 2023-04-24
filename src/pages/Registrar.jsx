@@ -313,7 +313,7 @@ const Registrar = () => {
                 name="renovacionAutomatica" 
                 value={renovacionAutomatica}
                 onChange={(e) => setRenovacionAutomatica(e.target.checked)}/>
-                Permitir renovacion automatica
+                Permitir renovacion automática
             </label>
           </div>
         </div>

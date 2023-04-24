@@ -23,7 +23,7 @@ const PanelDeControl = () => {
         const obtenerDoctores = async () => {
           if(auth.rol==='administrador'){
             try {
-              const {data} = await axios('http://localhost:4000/api/doctores/obtenerDoctores', config);
+              const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/obtenerDoctores`, config);
               
               setDoctores(data);
             } catch (error) {
@@ -42,7 +42,7 @@ const PanelDeControl = () => {
         const comprobarSuscripciones = async () => {
           if(auth.rol==='administrador'){
             try {
-              const {data} = await axios.put('http://localhost:4000/api/doctores/comprobarSuscripciones');
+              const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/comprobarSuscripciones`);
               
               console.log('Exito')
               console.log(data.mensaje)
@@ -70,7 +70,7 @@ const PanelDeControl = () => {
         }
 
         try {
-          const {data} = await axios.delete(`http://localhost:4000/api/doctores/eliminarDoctor/${idDoctor}`, config)
+          const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/eliminarDoctor/${idDoctor}`, config)
 
         } catch (error) {
           console.log(error)

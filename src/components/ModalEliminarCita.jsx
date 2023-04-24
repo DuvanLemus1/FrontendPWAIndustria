@@ -70,7 +70,7 @@ const ModalEliminarCita = () => {
                                     </Dialog.Title>
                                     <div className='mt-2'>
                                         <p className='text-sm text-gray-600'>
-                                            Una cita eliminada no se puede recuperar, tomalo en cuenta
+                                            Una cita eliminada no se puede recuperar, procede con precaución
                                         </p>
                                     </div>
                                 </div>

@@ -30,7 +30,7 @@ const AuthProvider = ({children}) =>{
             }
             
             try {
-                const {data} = await axios(`http://localhost:4000/api/doctores/perfil`, config)
+                const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/perfil`, config)
                 setAuth(data)
                 //navigate('/pacientes')
             } catch (error) {

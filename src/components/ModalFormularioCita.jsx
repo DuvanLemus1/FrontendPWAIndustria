@@ -141,14 +141,14 @@ const ModalFormularioCita = () => {
                                                 className='text-gray-700 uppercase font-bold text-sm'
                                                 htmlFor='descripcion'
                                             >
-                                                Descripcion de cita
+                                                Descripción de cita
                                             </label>
                                             <textarea
                                                 className='border-2 w-full p-2 mt-2 placeholder-gray-400 
                                                            rounded-md'
                                                 type="a"
                                                 id="nombre"
-                                                placeholder='Descripcion de la cita'
+                                                placeholder='Descripción de la cita'
                                                 value={descripcion}
                                                 onChange={e => setDescripcion(e.target.value)}
                                             />

@@ -14,7 +14,7 @@ const ConfirmarCuenta = () => {
   useEffect(()=>{
     const confirmarCuenta = async () => {
       try {
-        const url = `http://localhost:4000/api/doctores/confirmarCuenta/${token}`
+        const url = `${import.meta.env.VITE_BACKEND_URL}/api/doctores/confirmarCuenta/${token}`
         const {data} = await axios(url);
         console.log(data)
         

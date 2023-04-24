@@ -101,7 +101,7 @@ const PerfilDoctor = () => {
             className="rounded-lg p-1.5 bg-sky-500 font-bold text-white"
           >Cancelar Próxima Suscripción</button>}
         </div>
-        <p className="font-bold my-2 mt-10">*Puedes cancelar la próxima renovación a tu suscripcion siempre y cuando no haya iniciado,
+        <p className="font-bold my-2 mt-10">*Puedes cancelar la próxima renovación a tu suscripción siempre y cuando no haya iniciado,
                                        esto también ocasionará que la renovación automática de tu suscripción sea desactivada para
                                        evitar recargos indeseados en tu tarjeta. Para reactivar tu renovación automática o expandir 
                                        tu plan de suscripción, haz click en el botón "Administrar Suscripción"</p>

@@ -174,7 +174,7 @@ const ModalEditarSuscripcion = () => {
                                         <div className="border p-2 rounded-lg shadow-md mb-3">
                                         <div >
                                             <p className="flex justify-center mb-3 ">
-                                            Elije tu tipo de suscripcion - LPS. 100.00 al mes</p>
+                                            Elije tu tipo de suscripción - LPS. 100.00 al mes</p>
                                             <div className='flex justify-center'>
                                                 <label htmlFor="fechaInicioSuscripcion1" className="font-bold">
                                                 <input

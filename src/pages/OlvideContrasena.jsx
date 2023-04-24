@@ -25,7 +25,7 @@ const OlvideContrasena = () => {
 
 
     try {
-      const {data} = await axios.post(`http://localhost:4000/api/doctores/olvideContrasena`, {
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/olvideContrasena`, {
         "correoElectronico":correoElectronico
       });
       setAlerta({

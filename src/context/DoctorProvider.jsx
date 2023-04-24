@@ -26,7 +26,7 @@ const DoctorProvider = ({children}) => {
                 Authorization: `Bearer ${token}`
             }
         }
-        const {data} = await axios(`http://localhost:4000/api/doctores/obtenerDoctor/${idDoctor}`, config);
+        const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/obtenerDoctor/${idDoctor}`, config);
           
         setDoctor(data)
         
@@ -52,7 +52,7 @@ const DoctorProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.put(`http://localhost:4000/api/doctores/actualizarDoctor/${idDoctor}`, doctor, config);
+            const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/actualizarDoctor/${idDoctor}`, doctor, config);
             
             setModalEditarDoctor(false)
 
@@ -81,7 +81,7 @@ const DoctorProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.put(`http://localhost:4000/api/doctores/actualizarSuscripcionDoctor/${idDoctor}`, doctor, config);
+            const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/actualizarSuscripcionDoctor/${idDoctor}`, doctor, config);
             
             setModalEditarSuscripcion(false)
 
@@ -108,7 +108,7 @@ const DoctorProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.put(`http://localhost:4000/api/doctores/cancelarSuscripcion/${idDoctor}`, doctor, config);
+            const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/cancelarSuscripcion/${idDoctor}`, doctor, config);
             setModalCancelarSuscripcion(false)
 
         } catch (error) {

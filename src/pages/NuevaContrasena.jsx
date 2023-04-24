@@ -17,7 +17,7 @@ const NuevaContrasena = () => {
   useEffect(()=>{
       const comprobarToken = async()=>{
         try {
-            await axios(`http://localhost:4000/api/doctores/olvideContrasena/${token}`)
+            await axios(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/olvideContrasena/${token}`)
             setTokenValido(true);
 
         } catch (error) {
@@ -45,7 +45,7 @@ const NuevaContrasena = () => {
 
 
     try {
-      const {data} = await axios.post(`http://localhost:4000/api/doctores/olvideContrasena/${token}`, {
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/doctores/olvideContrasena/${token}`, {
         "contrasena":contrasena
       });
       setAlerta({

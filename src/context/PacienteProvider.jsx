@@ -33,7 +33,7 @@ const PacientesProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            const {data} = await axios('http://localhost:4000/api/pacientes', config);
+            const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/pacientes`, config);
               
             setPacientes(data)
             
@@ -70,7 +70,7 @@ const PacientesProvider = ({children}) => {
                     }
                 }
 
-                const {data} = await axios.put(`http://localhost:4000/api/pacientes/${paciente.id}`,paciente, config);
+                const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/pacientes/${paciente.id}`,paciente, config);
                 
                 //Sincronizar el state
                 const pacientesActualizados = 
@@ -111,7 +111,7 @@ const PacientesProvider = ({children}) => {
                     }
                 }
 
-                const {data} = await axios.post('http://localhost:4000/api/pacientes', paciente, config)
+                const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/pacientes`, paciente, config)
                 
                 setPacientes([...pacientes, data])
 
@@ -154,7 +154,7 @@ const PacientesProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios(`http://localhost:4000/api/pacientes/${idPaciente}`,config)
+            const {data} = await axios(`${import.meta.env.VITE_BACKEND_URL}/api/pacientes/${idPaciente}`,config)
             const {paciente,citas}=data;
             setPaciente(paciente);
             setCitas(citas)
@@ -178,7 +178,7 @@ const PacientesProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.delete(`http://localhost:4000/api/pacientes/${idPaciente}`, config)
+            const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/pacientes/${idPaciente}`, config)
             
             const pacientesActualizados = pacientes.filter(pacienteState=>pacienteState.idPaciente!==idPaciente)
             setPacientes(pacientesActualizados);
@@ -226,7 +226,7 @@ const PacientesProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.post(`http://localhost:4000/api/citas/`, cita, config);
+            const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/citas/`, cita, config);
             console.log(data);
             setCitas([...citas, data])
             setAlerta({})
@@ -249,7 +249,7 @@ const PacientesProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.put(`http://localhost:4000/api/citas/${cita.id}`, cita, config);
+            const {data} = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/citas/${cita.id}`, cita, config);
             console.log(data);
             
             setAlerta({})
@@ -274,7 +274,7 @@ const PacientesProvider = ({children}) => {
                 }
             }
 
-            const {data} = await axios.delete(`http://localhost:4000/api/citas/${cita.idCita}`, config);
+            const {data} = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/citas/${cita.idCita}`, config);
             setAlerta({
                 msg:data.msg,
                 error:false
